@@ -1,12 +1,11 @@
 "use client";
 
 import { Box, useTheme } from "@mui/material";
-import { PaymentConfirmation } from "@/app/lender/payment/components/Payment/PaymentConfirmation";
-import { LoanProgress } from "@/app/lender/payment/components/LoanProgress/LoanProgress";
-import { PaymentSchedule } from "@/app/lender/payment/components/PaymentSchedule/PaymentSchedule";
+import { LoanSummary } from "@/app/lender/loan/components/LoanSummary/LoanSummary";
+import { PaymentSchedule } from "@/app/lender/loan/components/PaymentSchedule/PaymentSchedule";
 import { BorrowerInfoCard } from "@/app/lender/general-components/BorrowerInfoCard";
-import { LoanDetailsCard } from "@/app/lender/payment/components/LoanDetails/LoanDetailsCard";
-import { QuickActionsCard } from "@/app/lender/payment/components/QuickActions/QuickActionsCard";
+import { ContractInfoCard } from "@/app/lender/loan/components/ContractInfo/ContractInfoCard";
+import { RiskEvaluationCard } from "@/app/lender/loan/components/RiskEvaluationCard/RiskEvaluationCard";
 
 export default function TransactionsHistory() {
   const themeMUI = useTheme();
@@ -29,19 +28,18 @@ export default function TransactionsHistory() {
       }}
     >
       <Box gridArea="leftCol" display="flex" flexDirection="column" gap={3}>
-        <PaymentConfirmation />
-        <LoanProgress />
+        <LoanSummary />
         <PaymentSchedule />
       </Box>
       <Box gridArea="rightCol" display="flex" flexDirection="column" gap={3}>
         <BorrowerInfoCard
-          borrowerName="Maria Gonzales"
-          score={"750"}
+          borrowerName="Carlos Rodriguez"
+          score={"680"}
           paymentAddress="0x4c0896bBfA45B0f2F59C758D05F5f12e8456A987"
-          totalLoans="3 activos"
+          totalLoans="2 activos"
         />
-        <LoanDetailsCard />
-        <QuickActionsCard />
+        <RiskEvaluationCard />
+        <ContractInfoCard />
       </Box>
     </Box>
   );
