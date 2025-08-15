@@ -1,14 +1,14 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {Box, useTheme} from "@mui/material";
+import {Box} from "@mui/material";
 import React from "react";
 import {useEarningPredictions} from "@/app/lender/dashboard/hooks";
 
 export const EarningPredictionChart = () => {
-    const { isMdUp, data } = useEarningPredictions();
+    const { isMdDown, data } = useEarningPredictions();
     
     return (
         <Box sx={{ mt: 2 }}>
-            <ResponsiveContainer width="100%" height={isMdUp ? 250 : 200}>
+            <ResponsiveContainer width="100%" height={isMdDown ? 200 : 250}>
                 <AreaChart data={data}>
                     <defs>
                         <linearGradient id="colorConservador" x1="0" y1="0" x2="0" y2="1">
