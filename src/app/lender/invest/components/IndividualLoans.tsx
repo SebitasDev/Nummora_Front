@@ -1,3 +1,5 @@
+"use client";
+
 import { CustomCard } from "@/components/atoms/CustomCard";
 import { CustomChip } from "@/components/atoms/CustomChip";
 import SectionHeader from "@/components/atoms/SectionHeader";
