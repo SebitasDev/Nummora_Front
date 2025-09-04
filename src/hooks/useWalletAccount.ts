@@ -21,6 +21,6 @@ export const useWalletAccount = () => {
         client,
         walletClient,
         publicClient,
-        user: address ?? null,
+        user: address,
     };
 };
