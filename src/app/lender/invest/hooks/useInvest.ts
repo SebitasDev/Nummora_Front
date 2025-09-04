@@ -28,7 +28,7 @@ export const useInvest = () => {
   }
 
   const acceptLoan = async (value: number, installments: number, interest: number) => {
-
+    console.log("User account", user)
     const loanData = {
       lender: user as `0x${string}`,
       borrower: '0xae8B1aBF4155647a6f41D93B40820C56E8fBa360' as `0x${string}`,
