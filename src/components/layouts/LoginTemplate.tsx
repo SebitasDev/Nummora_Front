@@ -7,13 +7,13 @@ import dynamic from "next/dynamic";
 import React, { useState } from "react";
 // Import dinámico para SelfVerificationButton
 const SelfVerificationButton = dynamic(
-  () => import("../../../self/frontend/SelfVerificationButton"),
+  () => import("../../lib/self/SelfVerificationButton"),
   { ssr: false }
 );
 
 // Import dinámico para SelfVerificationStatus
 const SelfVerificationStatus = dynamic(
-  () => import("../../../self/frontend/SelfVerificationStatus"),
+  () => import("../../lib/self/SelfVerificationStatus"),
   { ssr: false }
 );
 

@@ -65,7 +65,7 @@ export const useInvest = () => {
       dataHash: dataHash
     };
 
-    const response = await axios.post('http://localhost:3000/blockchain/loan', payload, {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blockchain/loan`, payload, {
       headers: { 'Content-Type': 'application/json' }
     });
 

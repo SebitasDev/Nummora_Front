@@ -10,7 +10,7 @@ export default function SelfVerificationStatus({ sessionId }: Props) {
   const [message, setMessage] = useState<string>("Esperando verificación...");
   const pollRef = useRef<number | null>(null);
 
-  const apiBase = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080").replace(/\/+$/, "");
+  const apiBase = (process.env.NEXT_PUBLIC_API_URL || "https://nummora-self-verification.up.railway.app/").replace(/\/+$/, "");
 
   useEffect(() => {
     if (!sessionId) return;

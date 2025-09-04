@@ -14,7 +14,7 @@ interface SelfVerificationButtonProps {
 }
 
 export default function SelfVerificationButton({ onSessionId }: SelfVerificationButtonProps) {
-  const [selfApp, setSelfApp] = useState<SelfApp | null>(null);
+  const [_, setSelfApp] = useState<SelfApp | null>(null);
   const [universalLink, setUniversalLink] = useState("");
   const [resultMessage, setResultMessage] = useState<string | null>(null);
   const [showQR, setShowQR] = useState(false);
@@ -22,9 +22,9 @@ export default function SelfVerificationButton({ onSessionId }: SelfVerification
   const pollRef = useRef<number | null>(null);
 
   // Base local SOLO para polling (/api/status/:sid)
-  const apiBase = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080").replace(/\/+$/, "");
+  const apiBase = (process.env.NEXT_PUBLIC_API_URL || "https://nummora-self-verification.up.railway.app/").replace(/\/+$/, "");
   // Dominio público HTTPS (ngrok) para el callback de Self
-  const publicBase = (process.env.NEXT_PUBLIC_SELF_CALLBACK || "https://673db36e43c3.ngrok-free.app").replace(/\/+$/, "");
+  const publicBase = (process.env.NEXT_PUBLIC_SELF_CALLBACK || "https://nummora-self-verification.up.railway.app/").replace(/\/+$/, "");
 
   useEffect(() => {
     return () => {
