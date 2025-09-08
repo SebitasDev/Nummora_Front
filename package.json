@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@automapper/classes": "^8.8.1",
+    "@automapper/core": "^8.8.1",
     "@divvi/referral-sdk": "^2.3.0",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
