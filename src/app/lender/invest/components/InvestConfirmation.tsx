@@ -3,7 +3,7 @@ import { AttachMoney } from "@mui/icons-material";
 import PillButton from "@/components/atoms/PillButton";
 
 export const InvestConfirmation = () => {
-  const { amount } = useInvest();
+  const { amount, acceptDeposit } = useInvest();
   return (
     <PillButton
       startIcon={<AttachMoney />}
@@ -14,6 +14,7 @@ export const InvestConfirmation = () => {
         color: "#FFFFFF",
         width: "100%",
       }}
+      onClick={async () => await acceptDeposit(amount)}
     >
       Confirmar Inversíon
     </PillButton>

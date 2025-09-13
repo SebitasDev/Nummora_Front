@@ -5,15 +5,14 @@ import PillButton from "@/components/atoms/PillButton";
 import {Box} from "@mui/material";
 import {useLogin} from "@/app/auth/login/hooks";
 import {RoleGroup} from "@/app/auth/login/components/RoleGroup";
-import {useEffect} from "react";
 import {useBalance} from "wagmi";
 
 export const LoginForm = () => {
     
-    const {register, handleSubmit, errors, onSubmit, control, isConnected, address} = useLogin();
+    const {register, handleSubmit, errors, onSubmit, control, isConnected, account} = useLogin();
     
     const { data: nativeBalance } = useBalance({
-        address: address,
+        address: account,
     });
     
     return (
@@ -41,7 +40,7 @@ export const LoginForm = () => {
             
             {isConnected && (
                 <Box sx={{mt: 2, color: "green"}}>
-                    <p>Conectado a la billetera: {address}</p>
+                    <p>Conectado a la billetera: {account}</p>
                     <p>Saldo nativo: {nativeBalance ? nativeBalance.formatted : "Cargando..."}</p>
                 </Box>
             )}

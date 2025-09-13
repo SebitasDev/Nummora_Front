@@ -25,7 +25,7 @@ export const MyEarnings = () => {
                     md: "span 8"
                 },
                 order: {
-                    xs: 2,
+                    xs: 3,
                     md: 'initial'
                 },
                 width : '100%',

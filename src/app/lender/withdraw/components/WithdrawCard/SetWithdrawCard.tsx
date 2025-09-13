@@ -12,9 +12,12 @@ import { CustomCard } from "@/components/atoms/CustomCard";
 import { WithdrawMethod } from "@/app/lender/withdraw/components/WithdrawCard/WithdrawMethod";
 import React, { useState } from "react";
 import SectionHeader from "@/components/atoms/SectionHeader";
+import {useWithdrawCard} from "@/app/lender/withdraw/hooks/useWithdrawCard";
 
 export const SetWithdrawCard = () => {
   const [selectedAddress, setSelectedAddress] = useState("");
+  
+  const { confirmWithdraw } = useWithdrawCard();
 
   return (
     <CustomCard sx={{ p: 1.7 }}>
@@ -43,6 +46,7 @@ export const SetWithdrawCard = () => {
             marginTop: 4,
           }}
           variant="contained"
+          onClick={async () => await confirmWithdraw()}
         >
           Confirmar Retiro
         </Button>

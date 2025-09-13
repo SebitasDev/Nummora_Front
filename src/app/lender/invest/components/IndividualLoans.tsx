@@ -4,32 +4,63 @@ import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Button, Typography } from "@mui/material";
 import { useInvest } from "@/app/lender/invest/hooks";
 
+interface LoanInterface {
+    name: string;
+    purpose: string;
+    amount: number;
+    term: string;
+    total: number;
+    installments: number;
+}
+
 export const IndividualLoans = () => {
-  const { theme, isMobile } = useInvest();
-  const loans = [
+  const { theme, isMobile, acceptLoan } = useInvest();
+  
+  let calculateInterest = (installments: number, value: number) : number => {
+    let totalInterest: number = 0;
+
+    if (installments == 1 && value <= 70){
+      totalInterest = value * (12 / 100);
+    }else if (installments == 2 && value <= 70){
+      totalInterest = value * (24 / 100);
+    }
+
+    if (installments == 1 && value >= 71 && value <= 100){
+      totalInterest = value * (7.40 / 100);
+    }else if (installments == 2 && value >= 71 && value <= 100){
+      totalInterest = value * (14.79 / 100);
+    }else if (installments == 3 && value >= 71 && value <= 100){
+      totalInterest = value * (22.19 / 100);
+    }
+
+    
+    return totalInterest;
+  }
+  
+  const loans : LoanInterface[] = [
     {
       name: "María González",
       purpose: "Gastos personales",
-      amount: 50000,
+      amount: 50,
       term: "1 mes",
-      profit: 4500,
-      total: 54500,
+      total: 54.5,
+      installments: 1
     },
     {
       name: "Carlos Rodríguez",
       purpose: "Pago de servicios",
-      amount: 70000,
+      amount: 70,
       term: "2 meses",
-      profit: 6000,
-      total: 76000,
+      total: 76,
+      installments: 2
     },
     {
       name: "Ana Martínez",
       purpose: "Compra de medicamentos",
-      amount: 80000,
-      term: "3 meses",
-      profit: 7200,
-      total: 87200,
+      amount: 80,
+      term: "2 meses",
+      total: 87.2,
+      installments: 3
     },
   ];
 
@@ -68,7 +99,7 @@ export const IndividualLoans = () => {
                     px: 0.6,
                   }}
                 >
-                  {`+$${loan.profit.toLocaleString()}`}
+                  {`+$${calculateInterest(loan.installments, loan.amount) * (75 / 100)}`}
                 </CustomChip>
               </Box>
 
@@ -136,6 +167,7 @@ export const IndividualLoans = () => {
                   borderRadius: "8px",
                   fontSize: "0.8rem",
                 }}
+                onClick={async () => await acceptLoan(loan.amount, loan.installments, calculateInterest(loan.installments, loan.amount))}
               >
                 Financiar préstamo completo
               </Button>

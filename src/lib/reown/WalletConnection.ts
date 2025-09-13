@@ -1,5 +1,5 @@
 import {WagmiAdapter} from "@reown/appkit-adapter-wagmi";
-import {celo, celoAlfajores, somniaTestnet} from "@reown/appkit/networks";
+import {celo, celoAlfajores, liskSepolia, somniaTestnet} from "@reown/appkit/networks";
 import {createAppKit} from "@reown/appkit/react";
 import { http } from "wagmi";
 
@@ -9,15 +9,17 @@ export const WalletConnection = () => {
     const wagmiAdapter = new WagmiAdapter({
         networks: [celo, somniaTestnet],
         transports: {
-            [celo.id]: http('https://forno.celo.org'),
-            [celoAlfajores.id]: http('https://alfajores-forno.celo-testnet.org'),
+            [celo.id]: http( celo.rpcUrls.default.http[0] ),
+            [celoAlfajores.id]: http( celoAlfajores.rpcUrls.default.http[0] ),
+            [somniaTestnet.id]: http( somniaTestnet.rpcUrls.default.http[0] ),
+            [liskSepolia.id]: http( liskSepolia.rpcUrls.default.http[0] )
         },
         projectId
     });
-    
+
     const modal = createAppKit({
         adapters: [wagmiAdapter],
-        networks: [celo, somniaTestnet],
+        networks: [celo, celoAlfajores, somniaTestnet, liskSepolia],
         projectId,
         metadata: {
             name: 'Lender Dashboard',
@@ -34,7 +36,7 @@ export const WalletConnection = () => {
             analytics: false
         }
     });
-    
+
     return {
         wagmiAdapter,
         modal

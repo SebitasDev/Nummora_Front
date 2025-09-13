@@ -8,17 +8,43 @@ export const useInvestAmount = () => {
   const [totalIncome, setTotalIncome] = useState("0");
 
   useEffect(() => {
-    const numericAmount =
-      Number(amount.replace(/\./g, "").replace(/,/g, "")) || 0;
-    const commissionValue = numericAmount * commissionRate;
-    setCommission(commissionValue.toLocaleString("es-CO"));
+    // Remover puntos (separadores de miles) y comas, luego convertir a número
+    const cleanAmount = amount.replace(/\./g, "").replace(/,/g, "");
+    const numericAmount = Number(cleanAmount) || 0;
 
+    // Calcular comisión
+    const commissionValue = numericAmount * commissionRate;
+
+    // Calcular total después de comisión
     const total = numericAmount - commissionValue;
-    setTotalIncome(total.toLocaleString("es-CO"));
-  }, [amount, commissionRate]);
+
+    // Formatear para mostrar
+    setCommission(commissionValue.toLocaleString("es-CO", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }));
+
+    setTotalIncome(total.toLocaleString("es-CO", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }));
+  }, [amount]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(e.target.value);
+    const value = e.target.value;
+
+    // Permitir solo números y puntos (para formato colombiano)
+    const cleanedValue = value.replace(/[^\d.]/g, "");
+
+    // Si es un número válido, formatearlo
+    const numericValue = Number(cleanedValue.replace(/\./g, ""));
+
+    if (!isNaN(numericValue)) {
+      // Formatear con separadores de miles
+      setAmount(numericValue.toLocaleString("es-CO"));
+    } else if (value === "") {
+      setAmount("");
+    }
   };
 
   const handleSelectAmount = (value: number | "all") => {
