@@ -10,7 +10,7 @@ export default function SelfVerificationStatus({ sessionId }: Props) {
   const [message, setMessage] = useState<string>("Esperando verificación...");
   const pollRef = useRef<number | null>(null);
 
-  const apiBase = (process.env.NEXT_PUBLIC_API_URL || "https://nummora-self-verification.up.railway.app/").replace(/\/+$/, "");
+  const apiBase = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080").replace(/\/+$/, "");
 
   useEffect(() => {
     if (!sessionId) return;
@@ -31,15 +31,12 @@ export default function SelfVerificationStatus({ sessionId }: Props) {
           if (pollRef.current) clearInterval(pollRef.current);
         }
       } catch (e) {
-        // ignore, sigue intentando
       }
     };
 
-    // limpia interval anterior si existía
     if (pollRef.current) clearInterval(pollRef.current);
     pollRef.current = window.setInterval(poll, 1500);
 
-    // llama al poll inmediatamente para no esperar 1.5s
     poll();
 
     return () => {
@@ -54,16 +51,16 @@ export default function SelfVerificationStatus({ sessionId }: Props) {
   } as const;
 
   return (
-    <div style={{
-      marginTop: 8,
-      padding: "6px 12px",
-      borderRadius: 8,
-      background: "#f4f4f4",
-      color: colorMap[status],
-      fontWeight: 600,
-      textAlign: "center",
-    }}>
-      {message}
-    </div>
+      <div style={{
+        marginTop: 8,
+        padding: "6px 12px",
+        borderRadius: 8,
+        background: "#f4f4f4",
+        color: colorMap[status],
+        fontWeight: 600,
+        textAlign: "center",
+      }}>
+        {message}
+      </div>
   );
 }

@@ -7,6 +7,7 @@ import {QueryClientProvider} from "@tanstack/react-query";
 import {WagmiProvider} from "wagmi";
 import React from "react";
 import {WalletConnection} from "@/lib/reown/WalletConnection";
+import {ToastContainer} from "react-toastify";
 
 export default function AppProvider({ children }: { children: React.ReactNode }) {
     const { wagmiAdapter } = WalletConnection();
@@ -21,6 +22,7 @@ export default function AppProvider({ children }: { children: React.ReactNode })
                             {children}
                         </WagmiProvider>
                     </ReactQueryProvider>
+                    <ToastContainer />
                 </Container>
             </LenderLayout>
         </Box>

@@ -1,12 +1,7 @@
 import {Address} from "viem";
 
 export class FinanceLoanDto {
+    loanId!: string;
     lender!: Address;
-    borrower!: Address;
-    token!: Address;
-    amount!: bigint;
-    interest!: bigint;
-    installments!: bigint;
-    platformFee!: bigint;
     dataHash!: Address;
 }

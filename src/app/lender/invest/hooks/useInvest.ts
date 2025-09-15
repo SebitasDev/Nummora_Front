@@ -8,6 +8,7 @@ import {Address, encodePacked, keccak256, parseEther} from "viem";
 import {financeLoan, FinanceLoanPayload} from "@/api/loan/financeLoan";
 import {mapper} from "@/mappers/mapper";
 import {FinanceLoanDto} from "@/interfaces/financeLoanDto";
+import {toast} from "react-toastify";
 
 export const useInvest = () => {
   const { amount, setAmount } = useInvestAmountStore();
@@ -29,35 +30,25 @@ export const useInvest = () => {
     });
   }
 
-  const acceptLoan = async (value: number, installments: number, interest: number) => {
+  const acceptLoan = async (loanId: string) => {
     const loanData: FinanceLoanDto = {
+      loanId,
       lender: user as Address,
-      borrower: '0xae8B1aBF4155647a6f41D93B40820C56E8fBa360' as `0x${string}`,
-      token: process.env.NEXT_PUBLIC_STABLECOIN_ADDRESS as `0x${string}`,
-      amount: BigInt(value) * BigInt(10 ** 18), 
-      interest: parseEther(interest.toString()),   
-      installments: BigInt(installments), 
-      platformFee: parseEther((interest * (25 / 100)).toString()),
       dataHash: null as unknown as Address
     };
     
     loanData.dataHash = keccak256(
         encodePacked(
-            ['address', 'address', 'address', 'uint256', 'uint256', 'uint256', 'uint256'],
-            [
-              loanData.lender,
-              loanData.borrower,
-              loanData.token,
-              loanData.amount,
-              loanData.interest,
-              loanData.installments,
-              loanData.platformFee
-            ]
+            ['string', 'address'],
+            [ loanData.loanId, loanData.lender ]
         )
     );
 
     const response = await financeLoan(mapper.map(loanData, FinanceLoanDto, FinanceLoanPayload))
 
+    if (response.transactionHash)
+      toast('Wow so easy !');
+    
     console.log(response);
   }
 
