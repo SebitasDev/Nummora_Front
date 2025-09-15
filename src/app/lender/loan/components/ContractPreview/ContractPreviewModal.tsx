@@ -9,7 +9,6 @@ import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 export const ContractPreview = () => {
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
-  const theme = Theme;
 
   return (
     <CustomCard display="flex" flexDirection="column" gap={3} p={3}>

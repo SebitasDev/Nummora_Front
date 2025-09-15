@@ -1,7 +1,6 @@
-import {LoginForm} from "@/app/auth/login/components/LoginForm";
-import {RoleGroup} from "@/app/auth/login/components/RoleGroup";
+import { LoginForm } from "./LoginForm";
+import { RoleGroup } from "./RoleGroup";
+import { ShieldIcon } from "./ShildIcon";
+import { StepLabel } from "./StepLabel";
 
-export {
-    LoginForm,
-    RoleGroup
-}
+export { LoginForm, RoleGroup, ShieldIcon, StepLabel };

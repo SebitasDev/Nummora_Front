@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box, BoxProps, Typography } from "@mui/material";
 import React from "react";
 
-interface SectionHeaderProps {
+interface SectionHeaderProps extends BoxProps {
   title: string;
   subtitle?: string;
   titleSize?: number | string;
@@ -19,9 +19,11 @@ export default function SectionHeader({
   icon,
   titleColor,
   subtitleColor,
+  sx,
+  ...rest
 }: SectionHeaderProps) {
   return (
-    <Box>
+    <Box sx={{ ...sx }} {...rest}>
       <Box display="flex" alignItems="center" gap={1}>
         {icon}
         <Typography
