@@ -8,7 +8,7 @@ export const financeLoanProfile = (mapper: Mapper) => {
         FinanceLoanDto, 
         FinanceLoanPayload,
         sameType<FinanceLoanDto, FinanceLoanPayload, string>('lender', d => d.lenderAddress),
-        sameType<FinanceLoanDto, FinanceLoanPayload, string>('loanId', d => d.temporalLoanId),
+        sameType<FinanceLoanDto, FinanceLoanPayload, string>('loanId', d => d.loanId),
         sameType<FinanceLoanDto, FinanceLoanPayload, string>('dataHash', d => d.dataHash),
     );
     

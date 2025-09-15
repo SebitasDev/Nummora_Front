@@ -1,22 +1,21 @@
 import {Address} from "viem";
 import httpClient from "@/api/utils/httpClient";
+import {ApiResponse} from "@/api/common/interface/genericResponse";
 
 export class FinanceLoanPayload {
     lenderAddress!: Address;
-    temporalLoanId!: string;
+    loanId!: string;
     dataHash!: Address;
 }
 
 interface FinanceLoanResponse {
-    message: string;
-    transactionHash: Address;
+    txHash?: Address;
 }
 
-export async function financeLoan(payload: FinanceLoanPayload): Promise<FinanceLoanResponse> {
+export async function financeLoan(payload: FinanceLoanPayload): Promise<ApiResponse<FinanceLoanResponse>> {
     try {
-        console.log(payload);
         const { data } = await httpClient.post("/loan/finance", payload);
-        return data as FinanceLoanResponse;
+        return data as ApiResponse<FinanceLoanResponse>;
     }catch (e: any){
         throw new Error(e.response?.data?.error || 'Error financing loan');
     }

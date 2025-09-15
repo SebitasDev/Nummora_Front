@@ -9,6 +9,7 @@ import {financeLoan, FinanceLoanPayload} from "@/api/loan/financeLoan";
 import {mapper} from "@/mappers/mapper";
 import {FinanceLoanDto} from "@/interfaces/financeLoanDto";
 import {toast} from "react-toastify";
+import { useEffect } from "react";
 
 export const useInvest = () => {
   const { amount, setAmount } = useInvestAmountStore();
@@ -46,10 +47,7 @@ export const useInvest = () => {
 
     const response = await financeLoan(mapper.map(loanData, FinanceLoanDto, FinanceLoanPayload))
 
-    if (response.transactionHash)
-      toast('Wow so easy !');
-    
-    console.log(response);
+    toast('Prestamo financiado con exito');
   }
 
   return {
