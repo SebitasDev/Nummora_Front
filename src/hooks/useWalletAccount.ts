@@ -1,6 +1,6 @@
-import { http, useAccount, useWalletClient } from "wagmi";
-import {createPublicClient, createWalletClient} from "viem";
-import {liskSepolia} from "@reown/appkit/networks";
+import { useAccount, useWalletClient } from "wagmi";
+import { createPublicClient, createWalletClient, http } from "viem";
+import { liskSepolia } from "@reown/appkit/networks";
 
 export const useWalletAccount = () => {
     const { isConnected, address } = useAccount();
@@ -8,12 +8,12 @@ export const useWalletAccount = () => {
 
     const client = createWalletClient({
         chain: liskSepolia,
-        transport: http()
+        transport: http(),
     });
 
     const publicClient = createPublicClient({
         chain: liskSepolia,
-        transport: http()
+        transport: http(),
     });
 
     return {

@@ -1,3 +1,5 @@
+"use client";
+
 import { useInvest } from "@/app/lender/invest/hooks";
 import { AttachMoney } from "@mui/icons-material";
 import PillButton from "@/components/atoms/PillButton";
