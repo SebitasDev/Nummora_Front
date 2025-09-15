@@ -190,6 +190,7 @@ export default function SelfVerificationButton({
           gap: 1,
           minWidth: 350,
           minHeight: 50,
+          flexDirection: "column",
         }}
       >
         <Button
@@ -211,7 +212,6 @@ export default function SelfVerificationButton({
             sx={{
               backgroundColor: "#059669",
               color: "#fff",
-              borderRadius: 2,
               px: 2,
               "&:hover": { backgroundColor: "#047857" },
             }}
