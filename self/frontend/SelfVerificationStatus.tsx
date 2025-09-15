@@ -31,15 +31,12 @@ export default function SelfVerificationStatus({ sessionId }: Props) {
           if (pollRef.current) clearInterval(pollRef.current);
         }
       } catch (e) {
-        // ignore, sigue intentando
       }
     };
 
-    // limpia interval anterior si existía
     if (pollRef.current) clearInterval(pollRef.current);
     pollRef.current = window.setInterval(poll, 1500);
 
-    // llama al poll inmediatamente para no esperar 1.5s
     poll();
 
     return () => {

@@ -99,7 +99,7 @@ export const IndividualLoans = () => {
                     px: 0.6,
                   }}
                 >
-                  {`+$${calculateInterest(loan.installments, loan.amount) * (75 / 100)}`}
+                  {`+$${(calculateInterest(loan.installments, loan.amount) * (75 / 100)).toLocaleString()}`}
                 </CustomChip>
               </Box>
 

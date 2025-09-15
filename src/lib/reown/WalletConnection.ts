@@ -7,9 +7,9 @@ export const WalletConnection = () => {
     const projectId = '62c66ed4cd07119457a08ddce0d80464';
 
     const wagmiAdapter = new WagmiAdapter({
-        networks: [celo, somniaTestnet],
+        networks: [/*celo*/ somniaTestnet, liskSepolia],
         transports: {
-            [celo.id]: http( celo.rpcUrls.default.http[0] ),
+            //[celo.id]: http( celo.rpcUrls.default.http[0] ),
             [celoAlfajores.id]: http( celoAlfajores.rpcUrls.default.http[0] ),
             [somniaTestnet.id]: http( somniaTestnet.rpcUrls.default.http[0] ),
             [liskSepolia.id]: http( liskSepolia.rpcUrls.default.http[0] )
@@ -19,7 +19,7 @@ export const WalletConnection = () => {
 
     const modal = createAppKit({
         adapters: [wagmiAdapter],
-        networks: [celo, celoAlfajores, somniaTestnet, liskSepolia],
+        networks: [/*celo*/ celoAlfajores, somniaTestnet, liskSepolia],
         projectId,
         metadata: {
             name: 'Lender Dashboard',

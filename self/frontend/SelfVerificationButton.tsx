@@ -46,14 +46,12 @@ export default function SelfVerificationButton({
   const [sessionId, setSessionId] = useState("");
   const pollRef = useRef<number | null>(null);
 
-  // Base local SOLO para polling (/api/status/:sid)
   const apiBase = (
     process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"
   ).replace(/\/+$/, "");
-  // Dominio público HTTPS (ngrok) para el callback de Self
   const publicBase = (
     process.env.NEXT_PUBLIC_SELF_CALLBACK ||
-    "https://4bfc01bb466c.ngrok-free.app"
+    "https://673db36e43c3.ngrok-free.app"
   ).replace(/\/+$/, "");
 
   useEffect(() => {
@@ -106,10 +104,8 @@ export default function SelfVerificationButton({
 
   const buildCallbackUrl = (base: string, sid: string) => {
     if (!base || !base.startsWith("https://")) return "";
-    // Acepta tanto que la env venga con o sin /api/verify-self
     let url = base;
     if (!/\/api\/verify-self$/i.test(url)) url = `${url}/api/verify-self`;
-    // Anexamos el sid en query (clave del fix)
     url += (url.includes("?") ? "&" : "?") + `sid=${encodeURIComponent(sid)}`;
     return url;
   };
@@ -138,7 +134,7 @@ export default function SelfVerificationButton({
         version: 2,
         appName: "Nummora Front",
         scope: process.env.NEXT_PUBLIC_SELF_SCOPE || "nummora-front",
-        endpoint, // <- aquí va con ?sid=...
+        endpoint,
         logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
         userId,
         endpointType: "staging_https",

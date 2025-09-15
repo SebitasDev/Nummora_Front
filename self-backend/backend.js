@@ -12,7 +12,7 @@ const {
 // ---- CONFIG ----
 const PORT = Number(process.env.PORT || 8080);
 const SCOPE = (process.env.SELF_SCOPE || 'nummora-front').trim();
-const ENDPOINT = (process.env.SELF_ENDPOINT || 'https://673db36e43c3.ngrok-free.app/api/verify-self').replace(/\/+$/, '');
+const ENDPOINT = (process.env.SELF_ENDPOINT || '').replace(/\/+$/, '');
 const MOCK = String(process.env.SELF_MOCK_PASSPORT || 'true').toLowerCase() === 'true';
 const USER_ID_TYPE = (process.env.SELF_USER_ID_TYPE === 'uuid') ? 'uuid' : 'hex';
 const ALLOW_ORIGIN = process.env.CORS_ORIGIN || '*';
