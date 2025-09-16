@@ -2,7 +2,7 @@ import {Address} from "viem";
 import httpClient from "@/api/utils/httpClient";
 import {ApiResponse} from "@/api/common/interface/genericResponse";
 
-interface TemporalLoansResponse {
+export interface TemporalLoansResponse {
     id: string;
     borrower_id: string;
     amount: number;
