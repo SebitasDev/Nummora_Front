@@ -21,7 +21,7 @@ export const IndividualLoans = () => {
     const fetchLoans = async () => {
       try {
         const data = await getTemporalLoans();
-        setLoans(data);
+        setLoans(data.data || []);
       } catch (error) {
         console.error("Error fetching temporal loans:", error);
       } finally {
