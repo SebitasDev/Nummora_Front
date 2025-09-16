@@ -3,7 +3,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_nummoraLoan",
+        "name": "_nummoraCore",
         "type": "address"
       },
       {
@@ -200,6 +200,19 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "newBaseURI",
+        "type": "string"
+      }
+    ],
+    "name": "BaseURIUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "_fromTokenId",
         "type": "uint256"
@@ -212,6 +225,19 @@
       }
     ],
     "name": "BatchMetadataUpdate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "LoanMetadataUpdated",
     "type": "event"
   },
   {
@@ -341,6 +367,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "baseTokenURI",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -395,6 +434,91 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "lender",
+        "type": "address"
+      }
+    ],
+    "name": "getLenderLoans",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getLoanMetadata",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "loanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "borrower",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalToPay",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "installments",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "finishTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "documentHash",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "active",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct LoanNFT.LoanMetadata",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "owner",
         "type": "address"
       },
@@ -419,6 +543,89 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "lenderLoans",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "loanMetadata",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "loanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "borrower",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalToPay",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "installments",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "finishTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "documentHash",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "to",
         "type": "address"
       },
@@ -429,7 +636,7 @@
       },
       {
         "internalType": "string",
-        "name": "uri",
+        "name": "documentHash",
         "type": "string"
       }
     ],
@@ -453,7 +660,7 @@
   },
   {
     "inputs": [],
-    "name": "nummoraLoan",
+    "name": "nummoraCore",
     "outputs": [
       {
         "internalType": "address",
@@ -575,12 +782,12 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_nummoraLoan",
-        "type": "address"
+        "internalType": "string",
+        "name": "newBaseURI",
+        "type": "string"
       }
     ],
-    "name": "setNummoraLoan",
+    "name": "setBaseURI",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -676,13 +883,46 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "newNummoraLoan",
+        "name": "newCore",
         "type": "address"
       }
     ],
-    "name": "updateNummoraLoan",
+    "name": "updateCoreContract",
     "outputs": [],
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "borrower",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalToPay",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "installments",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateLoanMetadata",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

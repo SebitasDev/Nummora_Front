@@ -1,6 +1,7 @@
 import {Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 import {Control, Controller, FieldErrors} from "react-hook-form";
 import {LoginFormData} from "@/types";
+import {UserRoles} from "@/enums/UserRoles";
 
 interface RoleGroupProps {
     control: Control<LoginFormData>;
@@ -25,8 +26,8 @@ export const RoleGroup = (
                         row
                         aria-labelledby="role-group-label"
                     >
-                        <FormControlLabel value="1" control={<Radio />} label="Deudor" />
-                        <FormControlLabel value="2" control={<Radio />} label="Prestamista" />
+                        <FormControlLabel value={UserRoles.Borrower.toString()} control={<Radio />} label="Deudor" />
+                        <FormControlLabel value={UserRoles.Lender.toString()} control={<Radio />} label="Prestamista" />
                     </RadioGroup>
                 )}
             />

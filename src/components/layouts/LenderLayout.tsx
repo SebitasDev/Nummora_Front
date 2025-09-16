@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import Link from "next/link";
-import WalletInitializer from "@/components/atoms/WalletInitializer";
 import { useLenderLayout } from "@/hooks";
 import { CustomChip } from "@/components/atoms/CustomChip";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -172,7 +171,6 @@ export default function LenderLayout({
 
       {isMobile && !shouldHideNav && (
         <Box>
-          <WalletInitializer />
           <Paper
             sx={{
               position: "fixed",

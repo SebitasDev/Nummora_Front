@@ -25,7 +25,7 @@ export const ColouredCard = ({
         sx={{
           p: 2,
           borderRadius: "8px",
-          height: "80px",
+          height: "100px",
           backgroundColor: backgroundColor,
           borderColor: backgroundColor,
         }}

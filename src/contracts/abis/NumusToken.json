@@ -3,7 +3,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_nummoraLoan",
+        "name": "_nummoraCore",
         "type": "address"
       }
     ],
@@ -149,6 +149,19 @@
       {
         "indexed": true,
         "internalType": "address",
+        "name": "newCore",
+        "type": "address"
+      }
+    ],
+    "name": "CoreContractUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
         "name": "from",
         "type": "address"
       },
@@ -159,7 +172,7 @@
         "type": "uint256"
       }
     ],
-    "name": "NUMUSBurned",
+    "name": "NUMMUSBurned",
     "type": "event"
   },
   {
@@ -178,7 +191,7 @@
         "type": "uint256"
       }
     ],
-    "name": "NUMUSMinted",
+    "name": "NUMMUSMinted",
     "type": "event"
   },
   {
@@ -253,12 +266,12 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "spender",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "value",
         "type": "uint256"
       }
     ],
@@ -270,7 +283,7 @@
         "type": "bool"
       }
     ],
-    "stateMutability": "pure",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -320,6 +333,25 @@
         "type": "uint8"
       }
     ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "isCoreContract",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -356,7 +388,7 @@
   },
   {
     "inputs": [],
-    "name": "nummoraLoan",
+    "name": "nummoraCore",
     "outputs": [
       {
         "internalType": "address",
@@ -383,19 +415,6 @@
   {
     "inputs": [],
     "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_nummoraLoan",
-        "type": "address"
-      }
-    ],
-    "name": "setNummoraLoan",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -430,12 +449,12 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "to",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "value",
         "type": "uint256"
       }
     ],
@@ -447,24 +466,24 @@
         "type": "bool"
       }
     ],
-    "stateMutability": "pure",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "from",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "",
+        "name": "to",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "value",
         "type": "uint256"
       }
     ],
@@ -476,7 +495,7 @@
         "type": "bool"
       }
     ],
-    "stateMutability": "pure",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -488,6 +507,19 @@
       }
     ],
     "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newCore",
+        "type": "address"
+      }
+    ],
+    "name": "updateCoreContract",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
