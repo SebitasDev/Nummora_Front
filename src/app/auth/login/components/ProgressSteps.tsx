@@ -20,7 +20,7 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
   const progress = (completedSteps / totalSteps) * 100;
 
   return (
-    <Box sx={{ width: "100%", mt: 2 }}>
+    <Box sx={{ width: "100%" }}>
       <Box
         sx={{
           display: "flex",
@@ -44,7 +44,7 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
           borderRadius: 5,
           [`& .MuiLinearProgress-bar`]: {
             borderRadius: 5,
-            background: "linear-gradient(to right, #10b981, #3b82f6)", // verde → azul
+            background: "linear-gradient(90deg, #00C853, #2979FF)",
           },
         }}
       />

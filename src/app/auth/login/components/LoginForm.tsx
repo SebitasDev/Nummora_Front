@@ -38,7 +38,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     >
       <appkit-button size="md" label={"Conectar Billetera"} disabled />
 
-      {isConnected && (
+      {/* {isConnected && (
         <Box sx={{ mt: 2, color: "green" }}>
           <p>Conectado a la billetera: {account}</p>
           <p>
@@ -46,7 +46,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             {nativeBalance ? nativeBalance.formatted : "Cargando..."}
           </p>
         </Box>
-      )}
+      )} */}
 
       {/* <RoleGroup control={control} errors={errors} /> */}
     </Box>

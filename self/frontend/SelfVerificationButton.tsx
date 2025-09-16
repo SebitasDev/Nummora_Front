@@ -33,11 +33,13 @@ function uuid() {
 interface SelfVerificationButtonProps {
   onSessionId?: (sid: string) => void;
   onResult?: (data: any) => void;
+  isWalletConnected: boolean;
 }
 
 export default function SelfVerificationButton({
   onSessionId,
   onResult,
+  isWalletConnected,
 }: SelfVerificationButtonProps) {
   const [selfApp, setSelfApp] = useState<SelfApp | null>(null);
   const [universalLink, setUniversalLink] = useState("");
@@ -177,7 +179,6 @@ export default function SelfVerificationButton({
   return (
     <Box
       sx={{
-        maxWidth: 420,
         margin: "30px auto",
         textAlign: "center",
         fontFamily: "Inter, system-ui, Arial",
@@ -189,7 +190,6 @@ export default function SelfVerificationButton({
           justifyContent: "center",
           gap: 1,
           minWidth: 350,
-          minHeight: 50,
           flexDirection: "column",
         }}
       >
@@ -198,10 +198,12 @@ export default function SelfVerificationButton({
           variant="contained"
           startIcon={<QrCode2Icon />}
           fullWidth
+          disabled={!isWalletConnected}
           sx={{
             backgroundColor: "#2563eb",
             textTransform: "none",
             fontWeight: 500,
+            height: 45,
           }}
         >
           Login con Self
@@ -214,6 +216,7 @@ export default function SelfVerificationButton({
               color: "#fff",
               px: 2,
               "&:hover": { backgroundColor: "#047857" },
+              width: "100%",
             }}
           >
             Abrir en la app

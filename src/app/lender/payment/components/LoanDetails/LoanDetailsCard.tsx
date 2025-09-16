@@ -1,5 +1,4 @@
 import { Box, Typography, useMediaQuery, useTheme, Stack } from "@mui/material";
-import Theme from "@/theme/theme";
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 
