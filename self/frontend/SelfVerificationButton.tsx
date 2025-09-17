@@ -23,6 +23,7 @@ import { ethers } from "ethers";
 import { SelfAppBuilder, type SelfApp } from "@selfxyz/qrcode";
 import { getUniversalLink } from "@selfxyz/core";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 function uuid() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto)
@@ -34,12 +35,14 @@ interface SelfVerificationButtonProps {
   onSessionId?: (sid: string) => void;
   onResult?: (data: any) => void;
   isWalletConnected: boolean;
+  selfVerified: boolean;
 }
 
 export default function SelfVerificationButton({
   onSessionId,
   onResult,
   isWalletConnected,
+  selfVerified,
 }: SelfVerificationButtonProps) {
   const [selfApp, setSelfApp] = useState<SelfApp | null>(null);
   const [universalLink, setUniversalLink] = useState("");
@@ -196,18 +199,24 @@ export default function SelfVerificationButton({
         <Button
           onClick={generarQR}
           variant="contained"
-          startIcon={<QrCode2Icon />}
+          startIcon={selfVerified ? <TaskAltIcon /> : <QrCode2Icon />}
           fullWidth
           disabled={!isWalletConnected}
           sx={{
-            backgroundColor: "#2563eb",
+            backgroundColor: selfVerified ? "#8AD1A4" : "#2563eb",
             textTransform: "none",
             fontWeight: 500,
             height: 45,
+            "&.Mui-disabled": {
+              backgroundColor: selfVerified ? "#8AD1A4" : "#2563eb",
+              color: "#fff",
+              opacity: 0.7, // opcional: le puedes bajar un poco la opacidad
+            },
           }}
         >
-          Login con Self
+          {selfVerified ? "Verificado con Self" : "Login con Self"}
         </Button>
+
         {universalLink && (
           <Button
             onClick={openUniversalLink}
@@ -223,20 +232,6 @@ export default function SelfVerificationButton({
           </Button>
         )}
       </Box>
-
-      {resultMessage && (
-        <Box
-          sx={{
-            mt: 2,
-            p: 1.5,
-            borderRadius: 1,
-            fontWeight: 600,
-          }}
-        >
-          <Typography>{resultMessage}</Typography>
-        </Box>
-      )}
-
       <Dialog
         open={showQR}
         onClose={cerrarQR}

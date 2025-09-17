@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography, TypographyProps } from "@mui/material";
+import { Avatar, Box, Typography, TypographyProps, Chip } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { CustomChip } from "@/components/atoms/CustomChip";
 import theme from "@/theme/theme";

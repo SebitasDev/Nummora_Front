@@ -4,7 +4,7 @@ import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import dynamic from "next/dynamic";
 import React from "react";
 import { NumoraDescription } from "@/app/auth/login/components";
-import { LoginCard } from "@/app/auth/login/components/";
+import { RegisterCard } from "@/app/auth/login/components/";
 
 const SelfVerificationButton = dynamic(
   () => import("../../../self/frontend/SelfVerificationButton"),
@@ -67,7 +67,7 @@ export const LoginTemplate = () => {
             width: "100%",
           }}
         >
-          <LoginCard />
+          <RegisterCard />
         </Box>
       </Box>
       <Stack

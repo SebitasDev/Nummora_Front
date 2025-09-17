@@ -6,13 +6,17 @@ import SelfVerificationButton from "../../../../../../self/frontend/SelfVerifica
 import { ProgressSteps } from "./components/ProgressSteps";
 import { StepLabel } from "./components/StepLabel";
 import { useState } from "react";
+import { RoleGroup } from "./components/RoleGroup";
+import { useLogin } from "../../hooks";
 
-export const LoginCard = () => {
+export const RegisterCard = () => {
   const [sessionId, setSessionId] = useState("");
+  const [roleSelected, setRoleSelected] = useState(false);
   const [selfVerified, setSelfVerified] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
+  const { errors, control } = useLogin();
   return (
     <CustomCard
       sx={{
@@ -40,6 +44,17 @@ export const LoginCard = () => {
       />
       <StepLabel
         number={1}
+        title="Tipo de Usuario"
+        isDone={roleSelected}
+        sx={{ fontSize: isMdUp ? 14 : 11 }}
+      />
+      <RoleGroup
+        control={control}
+        errors={errors}
+        onRoleSelected={setRoleSelected}
+      />
+      <StepLabel
+        number={2}
         title="Conexión de Billetera"
         isDone={walletConnected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -56,7 +71,7 @@ export const LoginCard = () => {
         y
       </Divider>
       <StepLabel
-        number={2}
+        number={3}
         title="Verificación de identidad"
         isDone={selfVerified}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -69,12 +84,12 @@ export const LoginCard = () => {
               setSelfVerified(true);
             }
           }}
-          selfVerified={selfVerified}
           isWalletConnected={walletConnected}
         />
       </Box>
 
       <ProgressSteps
+        roleSelected={roleSelected}
         selfVerified={selfVerified}
         walletConnected={walletConnected}
       />

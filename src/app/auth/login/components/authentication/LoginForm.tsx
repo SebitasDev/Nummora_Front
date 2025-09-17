@@ -2,7 +2,7 @@
 
 import { Box } from "@mui/material";
 import { useLogin } from "@/app/auth/login/hooks";
-import { RoleGroup } from "@/app/auth/login/components/RoleGroup";
+import { RoleGroup } from "@/app/auth/login/components/RegisterCard/components/RoleGroup";
 import { useBalance } from "wagmi";
 import React from "react";
 
