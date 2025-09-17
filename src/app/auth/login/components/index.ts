@@ -1,6 +1,5 @@
-import { LoginForm } from "./LoginForm";
-import { RoleGroup } from "./RoleGroup";
-import { ShieldIcon } from "./ShildIcon";
-import { StepLabel } from "./StepLabel";
+import { LoginCard } from "./LoginCard/LoginCard";
+import { NumoraDescription } from "./NumoraDescription";
+import { RegisterCard } from "./RegisterCard/RegisterCard";
 
-export { LoginForm, RoleGroup, ShieldIcon, StepLabel };
+export { LoginCard, NumoraDescription, RegisterCard };
