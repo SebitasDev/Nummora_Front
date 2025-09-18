@@ -10,7 +10,7 @@ import {formatEther} from "viem";
 export default function BorrowerPage() {
     const [loanId, setLoanId] = useState(0);
     const theme = Theme
-    const { searchLoanById, loan, payInstallment, payEarly } = useBorrowerDashboard();
+    const { searchLoanById, loan, payInstallment, payEarly, payInstallmentSignature, signInstallment } = useBorrowerDashboard();
     
     return (
         <>
@@ -137,6 +137,28 @@ export default function BorrowerPage() {
                     onClick={async() => await payEarly(BigInt(loanId))}
                 >
                     Pagar completamente
+                </Button>
+
+                <Button
+                    sx={{
+                        mt: 2,
+                        textTransform: "none",
+                        borderRadius: 1.7,
+                        height: 48,
+                    }}
+                    variant={"outlined"}
+                    color={"success"}
+                    onClick={async () => {
+                        if (!loan) return;
+
+                        await payInstallmentSignature(
+                            BigInt(loanId),
+                            "18c50a86-fc7c-4fdb-b3d7-1b566d7736dd",
+                            loan.installmentAmount
+                        );
+                    }}
+                >
+                    Pagar una cuota con firma
                 </Button>
             </Box>
         </>
