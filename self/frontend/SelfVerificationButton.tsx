@@ -210,27 +210,28 @@ export default function SelfVerificationButton({
             "&.Mui-disabled": {
               backgroundColor: selfVerified ? "#8AD1A4" : "#2563eb",
               color: "#fff",
-              opacity: 0.7, // opcional: le puedes bajar un poco la opacidad
+              opacity: 0.7,
             },
           }}
         >
           {selfVerified ? "Verificado con Self" : "Login con Self"}
         </Button>
 
-        {universalLink && (
-          <Button
-            onClick={openUniversalLink}
-            sx={{
-              backgroundColor: "#059669",
-              color: "#fff",
-              px: 2,
-              "&:hover": { backgroundColor: "#047857" },
-              width: "100%",
-            }}
-          >
-            Abrir en la app
-          </Button>
-        )}
+        {selfVerified ||
+          (universalLink && (
+            <Button
+              onClick={openUniversalLink}
+              sx={{
+                backgroundColor: "#059669",
+                color: "#fff",
+                px: 2,
+                "&:hover": { backgroundColor: "#047857" },
+                width: "100%",
+              }}
+            >
+              Abrir en la app
+            </Button>
+          ))}
       </Box>
       <Dialog
         open={showQR}

@@ -1,8 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { useLogin } from "@/app/auth/login/hooks";
-import { RoleGroup } from "@/app/auth/login/components/RegisterCard/components/RoleGroup";
+import { useLogin } from "@/app/auth/hooks";
 import { useBalance } from "wagmi";
 import React from "react";
 
@@ -47,8 +46,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           </p>
         </Box>
       )} */}
-
-      {/* <RoleGroup control={control} errors={errors} /> */}
     </Box>
   );
 };

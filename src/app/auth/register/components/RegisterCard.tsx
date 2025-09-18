@@ -1,18 +1,22 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
-import { LoginForm } from "../authentication/LoginForm";
-import SelfVerificationButton from "../../../../../../self/frontend/SelfVerificationButton";
+import { LoginForm } from "../../authentication/LoginForm";
+import SelfVerificationButton from "../../../../../self/frontend/SelfVerificationButton";
 import { ProgressSteps } from "./components/ProgressSteps";
 import { StepLabel } from "./components/StepLabel";
 import { useState } from "react";
+import { RoleGroup } from "./components/RoleGroup";
+import { useLogin } from "../../hooks";
 
-export const LoginCard = () => {
+export const RegisterCard = () => {
   const [sessionId, setSessionId] = useState("");
+  const [roleSelected, setRoleSelected] = useState(false);
   const [selfVerified, setSelfVerified] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
+  const { errors, control } = useLogin();
   return (
     <CustomCard
       sx={{
@@ -22,7 +26,7 @@ export const LoginCard = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 2,
+        gap: 1,
         boxShadow: "0px",
         border: "0px",
       }}
@@ -40,6 +44,27 @@ export const LoginCard = () => {
       />
       <StepLabel
         number={1}
+        title="Tipo de Usuario"
+        isDone={roleSelected}
+        sx={{ fontSize: isMdUp ? 14 : 11 }}
+      />
+      <RoleGroup
+        control={control}
+        errors={errors}
+        onRoleSelected={setRoleSelected}
+      />
+      <Divider
+        variant="fullWidth"
+        sx={{
+          color: "grey.600",
+          fontSize: isMdUp ? 15 : 12,
+          marginY: "1%",
+        }}
+      >
+        y
+      </Divider>
+      <StepLabel
+        number={2}
         title="Conexión de Billetera"
         isDone={walletConnected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -56,12 +81,12 @@ export const LoginCard = () => {
         y
       </Divider>
       <StepLabel
-        number={2}
+        number={3}
         title="Verificación de identidad"
         isDone={selfVerified}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
-      <Box sx={{ mt: -3.5, width: "100%", height: 100 }}>
+      <Box sx={{ mt: -3.5, mb: 2, width: "100%", height: 100 }}>
         <SelfVerificationButton
           onSessionId={setSessionId}
           onResult={(data) => {
@@ -69,12 +94,13 @@ export const LoginCard = () => {
               setSelfVerified(true);
             }
           }}
-          selfVerified={selfVerified}
           isWalletConnected={walletConnected}
+          selfVerified={selfVerified}
         />
       </Box>
 
       <ProgressSteps
+        roleSelected={roleSelected}
         selfVerified={selfVerified}
         walletConnected={walletConnected}
       />

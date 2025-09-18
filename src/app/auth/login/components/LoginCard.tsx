@@ -1,22 +1,18 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
-import { LoginForm } from "../authentication/LoginForm";
-import SelfVerificationButton from "../../../../../../self/frontend/SelfVerificationButton";
+import { LoginForm } from "../../authentication/LoginForm";
+import SelfVerificationButton from "../../../../../self/frontend/SelfVerificationButton";
 import { ProgressSteps } from "./components/ProgressSteps";
 import { StepLabel } from "./components/StepLabel";
 import { useState } from "react";
-import { RoleGroup } from "./components/RoleGroup";
-import { useLogin } from "../../hooks";
 
-export const RegisterCard = () => {
+export const LoginCard = () => {
   const [sessionId, setSessionId] = useState("");
-  const [roleSelected, setRoleSelected] = useState(false);
   const [selfVerified, setSelfVerified] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
-  const { errors, control } = useLogin();
   return (
     <CustomCard
       sx={{
@@ -44,17 +40,6 @@ export const RegisterCard = () => {
       />
       <StepLabel
         number={1}
-        title="Tipo de Usuario"
-        isDone={roleSelected}
-        sx={{ fontSize: isMdUp ? 14 : 11 }}
-      />
-      <RoleGroup
-        control={control}
-        errors={errors}
-        onRoleSelected={setRoleSelected}
-      />
-      <StepLabel
-        number={2}
         title="Conexión de Billetera"
         isDone={walletConnected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -71,7 +56,7 @@ export const RegisterCard = () => {
         y
       </Divider>
       <StepLabel
-        number={3}
+        number={2}
         title="Verificación de identidad"
         isDone={selfVerified}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -84,12 +69,12 @@ export const RegisterCard = () => {
               setSelfVerified(true);
             }
           }}
+          selfVerified={selfVerified}
           isWalletConnected={walletConnected}
         />
       </Box>
 
       <ProgressSteps
-        roleSelected={roleSelected}
         selfVerified={selfVerified}
         walletConnected={walletConnected}
       />
