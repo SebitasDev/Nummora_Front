@@ -1,5 +1,5 @@
 import {WagmiAdapter} from "@reown/appkit-adapter-wagmi";
-import {celo, celoAlfajores, liskSepolia, somniaTestnet} from "@reown/appkit/networks";
+import {celoAlfajores, kairos, liskSepolia, somniaTestnet} from "@reown/appkit/networks";
 import {createAppKit} from "@reown/appkit/react";
 import { http } from "wagmi";
 
@@ -12,14 +12,15 @@ export const WalletConnection = () => {
             //[celo.id]: http( celo.rpcUrls.default.http[0] ),
             [celoAlfajores.id]: http( celoAlfajores.rpcUrls.default.http[0] ),
             [somniaTestnet.id]: http( somniaTestnet.rpcUrls.default.http[0] ),
-            [liskSepolia.id]: http( liskSepolia.rpcUrls.default.http[0] )
+            [liskSepolia.id]: http( liskSepolia.rpcUrls.default.http[0] ),
+            [kairos.id]: http( kairos.rpcUrls.default.http[0] ),
         },
         projectId
     });
 
     const modal = createAppKit({
         adapters: [wagmiAdapter],
-        networks: [/*celo*/ celoAlfajores, somniaTestnet, liskSepolia],
+        networks: [/*celo*/ celoAlfajores, somniaTestnet, liskSepolia, kairos],
         projectId,
         metadata: {
             name: 'Lender Dashboard',

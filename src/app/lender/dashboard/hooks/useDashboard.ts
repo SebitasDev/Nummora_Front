@@ -8,28 +8,29 @@ export const useDashboard = () => {
     const read = contractRead();
     const { user } = useWalletAccount();
     const [balance, setBalance] = useState<bigint | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [_, setLoading] = useState(true);
 
     useEffect(() => {
+        if (!user) return;
+
         const fetchBalance = async () => {
             try {
-                console.log(user);
                 const result = await read<bigint>({
                     ContractAddress: process.env.NEXT_PUBLIC_NUMMUS_TOKEN_ADDRESS as `0x${string}`,
                     abi: NummusTokenAbi,
                     functionName: "balanceOf",
-                    args: [user]
-                })
+                    args: [user],
+                });
                 setBalance(result);
             } catch (error) {
-                console.error('Error fetching balance:', error);
+                console.error("Error fetching balance:", error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchBalance();
-    }, []);
+    }, [user]);
 
     const formatWithDecimals = (balance: bigint): string => {
         const value = parseFloat(formatEther(balance));

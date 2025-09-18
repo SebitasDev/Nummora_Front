@@ -4,8 +4,12 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import {useContractWrite} from "@/hooks/useContractWrite";
 import {NummoraLoanAbi} from "@/contracts";
 import {useWalletAccount} from "@/hooks/useWalletAccount";
-import {encodePacked, keccak256, parseEther} from "viem";
-import axios from 'axios';
+import {Address, encodePacked, keccak256, parseEther} from "viem";
+import {financeLoan, FinanceLoanPayload} from "@/api/loan/financeLoan";
+import {mapper} from "@/mappers/mapper";
+import {FinanceLoanDto} from "@/interfaces/financeLoanDto";
+import {toast} from "react-toastify";
+import { useEffect } from "react";
 
 export const useInvest = () => {
   const { amount, setAmount } = useInvestAmountStore();
@@ -21,55 +25,29 @@ export const useInvest = () => {
       abi: NummoraLoanAbi,
       functionName: "deposit",
       args: [
-        "0xB4630414268949dd89D335a66be40819D2db0C5c" as `0x${string}`, //Address Stablecoin
+        process.env.NEXT_PUBLIC_STABLECOIN_ADDRESS as `0x${string}`, //Address Stablecoin
         BigInt(value) * BigInt(10 ** 18) //Amount
       ]
     });
   }
 
-  const acceptLoan = async (value: number, installments: number, interest: number) => {
-
-    const loanData = {
-      lender: user as `0x${string}`,
-      borrower: '0xae8B1aBF4155647a6f41D93B40820C56E8fBa360' as `0x${string}`,
-      token: '0xB4630414268949dd89D335a66be40819D2db0C5c' as `0x${string}`,
-      amount: BigInt(value) * BigInt(10 ** 18), 
-      interest: parseEther(interest.toString()),   
-      installments: BigInt(installments), 
-      platformFee: parseEther((interest * (25 / 100)).toString())
+  const acceptLoan = async (loanId: string) => {
+    const loanData: FinanceLoanDto = {
+      loanId,
+      lender: user as Address,
+      dataHash: null as unknown as Address
     };
-
-    const dataHash = keccak256(
+    
+    loanData.dataHash = keccak256(
         encodePacked(
-            ['address', 'address', 'address', 'uint256', 'uint256', 'uint256', 'uint256'],
-            [
-              loanData.lender,
-              loanData.borrower,
-              loanData.token,
-              loanData.amount,
-              loanData.interest,
-              loanData.installments,
-              loanData.platformFee
-            ]
+            ['string', 'address'],
+            [ loanData.loanId, loanData.lender ]
         )
     );
 
-    const payload = {
-      lender: loanData.lender,
-      borrower: loanData.borrower,
-      token: loanData.token,
-      amount: loanData.amount.toString(),
-      interest: loanData.interest.toString(), 
-      installments: loanData.installments.toString(),
-      platformFee: loanData.platformFee.toString(),
-      dataHash: dataHash
-    };
+    const response = await financeLoan(mapper.map(loanData, FinanceLoanDto, FinanceLoanPayload))
 
-    const response = await axios.post('http://localhost:3000/blockchain/loan', payload, {
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    console.log('Success:', response.data);
+    toast('Prestamo financiado con exito');
   }
 
   return {

@@ -1,67 +1,59 @@
+"use client";
+
 import { CustomCard } from "@/components/atoms/CustomCard";
 import { CustomChip } from "@/components/atoms/CustomChip";
 import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Button, Typography } from "@mui/material";
 import { useInvest } from "@/app/lender/invest/hooks";
-
-interface LoanInterface {
-  name: string;
-  purpose: string;
-  amount: number;
-  term: string;
-  total: number;
-  installments: number;
-}
+import { useEffect, useState } from "react";
+import { TemporalLoansResponse } from "@/api/loan/temporalLoans";
+import { useTemporalLoan } from "@/app/lender/invest/hooks/useTemporalLoan";
 
 export const IndividualLoans = () => {
   const { theme, isMobile, acceptLoan } = useInvest();
+  const { getTemporalLoans } = useTemporalLoan();
 
-  let calculateInterest = (installments: number, value: number): number => {
-    let totalInterest: number = 0;
+  const [loans, setLoans] = useState<TemporalLoansResponse[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    if (installments == 1 && value <= 70) {
+  //TODO: migrar a Tanstack Query
+  useEffect(() => {
+    const fetchLoans = async () => {
+      try {
+        const data = await getTemporalLoans();
+        setLoans(data.data || []);
+      } catch (error) {
+        console.error("Error fetching temporal loans:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchLoans();
+  }, []);
+
+  const calculateInterest = (installments: number, value: number): number => {
+    let totalInterest = 0;
+
+    if (installments === 1 && value <= 70) {
       totalInterest = value * (12 / 100);
-    } else if (installments == 2 && value <= 70) {
+    } else if (installments === 2 && value <= 70) {
       totalInterest = value * (24 / 100);
     }
 
-    if (installments == 1 && value >= 71 && value <= 100) {
+    if (installments === 1 && value >= 71 && value <= 100) {
       totalInterest = value * (7.4 / 100);
-    } else if (installments == 2 && value >= 71 && value <= 100) {
+    } else if (installments === 2 && value >= 71 && value <= 100) {
       totalInterest = value * (14.79 / 100);
-    } else if (installments == 3 && value >= 71 && value <= 100) {
+    } else if (installments === 3 && value >= 71 && value <= 100) {
       totalInterest = value * (22.19 / 100);
     }
 
     return totalInterest;
   };
 
-  const loans: LoanInterface[] = [
-    {
-      name: "María González",
-      purpose: "Gastos personales",
-      amount: 50,
-      term: "1 mes",
-      total: 54.5,
-      installments: 1,
-    },
-    {
-      name: "Carlos Rodríguez",
-      purpose: "Pago de servicios",
-      amount: 70,
-      term: "2 meses",
-      total: 76,
-      installments: 2,
-    },
-    {
-      name: "Ana Martínez",
-      purpose: "Compra de medicamentos",
-      amount: 80,
-      term: "2 meses",
-      total: 87.2,
-      installments: 3,
-    },
-  ];
+  if (loading) {
+    return <Typography>Cargando préstamos...</Typography>;
+  }
 
   return (
     <CustomCard sx={{ height: "auto" }}>
@@ -84,21 +76,24 @@ export const IndividualLoans = () => {
                 }}
               >
                 <SectionHeader
-                  title={loan.name}
-                  subtitle={loan.purpose}
+                  title={`Préstamo ${loan.id}`}
+                  subtitle={loan.description}
                   titleSize={"1.2rem"}
                   subtitleSize={"0.8rem"}
                 />
                 <CustomChip
                   sx={{
                     p: 0.3,
-                    px: 0.6,
                     color: theme.palette.primary.dark,
                     backgroundColor: theme.palette.primary.background,
                     border: `1px solid ${theme.palette.primary.light}`,
+                    px: 0.6,
                   }}
                 >
-                  {`+$${(calculateInterest(loan.installments, loan.amount) * (75 / 100)).toLocaleString()}`}
+                  {`+$${(
+                    calculateInterest(loan.installments, loan.amount) *
+                    (75 / 100)
+                  ).toLocaleString()}`}
                 </CustomChip>
               </Box>
 
@@ -129,7 +124,7 @@ export const IndividualLoans = () => {
                     Plazo
                   </Typography>
                   <Typography variant="body2" fontWeight="bold">
-                    {loan.term}
+                    {loan.months} meses
                   </Typography>
                 </Box>
               </Box>
@@ -153,7 +148,10 @@ export const IndividualLoans = () => {
                   sx={{ textAlign: "center", fontWeight: "bold" }}
                 >
                   Inviertes: ${loan.amount.toLocaleString()} → Recibes: $
-                  {loan.total.toLocaleString()}
+                  {(
+                    loan.amount +
+                    calculateInterest(loan.months, loan.amount) * (75 / 100)
+                  ).toLocaleString()}
                 </Typography>
               </Box>
 
@@ -166,13 +164,7 @@ export const IndividualLoans = () => {
                   borderRadius: "8px",
                   fontSize: "0.8rem",
                 }}
-                onClick={async () =>
-                  await acceptLoan(
-                    loan.amount,
-                    loan.installments,
-                    calculateInterest(loan.installments, loan.amount)
-                  )
-                }
+                onClick={async () => await acceptLoan(loan.id)}
               >
                 Financiar préstamo completo
               </Button>

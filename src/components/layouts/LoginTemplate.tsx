@@ -7,12 +7,12 @@ import { NumoraDescription } from "@/app/auth";
 import { LoginCard } from "@/app/auth";
 
 const SelfVerificationButton = dynamic(
-  () => import("../../../self/frontend/SelfVerificationButton"),
+  () => import("../../lib/self/SelfVerificationButton"),
   { ssr: false }
 );
 
 const SelfVerificationStatus = dynamic(
-  () => import("../../../self/frontend/SelfVerificationStatus"),
+  () => import("../../lib/self/SelfVerificationStatus"),
   { ssr: false }
 );
 
