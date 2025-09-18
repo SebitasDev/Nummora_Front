@@ -12,12 +12,8 @@ interface LoginFormProps {
 export const LoginForm: React.FC<LoginFormProps> = ({
   onWalletStatusChange,
 }) => {
-  const { handleSubmit, errors, onSubmit, control, isConnected, account } =
-    useLogin();
+  const { handleSubmit, onSubmit, isConnected, account } = useLogin();
 
-  const { data: nativeBalance } = useBalance({
-    address: account,
-  });
   React.useEffect(() => {
     onWalletStatusChange?.(isConnected);
   }, [isConnected, onWalletStatusChange]);
@@ -35,17 +31,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         width: "100%",
       }}
     >
-      <appkit-button size="md" label={"Conectar Billetera"} disabled />
-
-      {/* {isConnected && (
-        <Box sx={{ mt: 2, color: "green" }}>
-          <p>Conectado a la billetera: {account}</p>
-          <p>
-            Saldo nativo:{" "}
-            {nativeBalance ? nativeBalance.formatted : "Cargando..."}
-          </p>
-        </Box>
-      )} */}
+      <appkit-button size="md" label={"Conectar Billetera"} />
     </Box>
   );
 };
