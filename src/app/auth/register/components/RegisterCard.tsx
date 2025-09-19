@@ -3,10 +3,10 @@ import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
 import { LoginForm } from "../../authentication/LoginForm";
 import SelfVerificationButton from "../../../../lib/self/SelfVerificationButton";
-import { ProgressSteps } from "./components/ProgressSteps";
-import { StepLabel } from "./components/StepLabel";
+import { ProgressSteps } from "./ProgressSteps";
+import { StepLabel } from "./StepLabel";
 import { useState } from "react";
-import { RoleGroup } from "./components/RoleGroup";
+import { RoleGroup } from "./RoleGroup";
 import { useLogin } from "../../hooks";
 
 export const RegisterCard = () => {
