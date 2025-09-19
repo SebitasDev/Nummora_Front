@@ -1,10 +1,10 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
-import { LoginForm } from "../authentication/LoginForm";
-import SelfVerificationButton from "../../../../../../self/frontend/SelfVerificationButton";
-import { ProgressSteps } from "./components/ProgressSteps";
-import { StepLabel } from "./components/StepLabel";
+import { LoginForm } from "../../authentication/LoginForm";
+import SelfVerificationButton from "../../../../lib/self/SelfVerificationButton";
+import { ProgressSteps } from "./ProgressSteps";
+import { StepLabel } from "./StepLabel";
 import { useState } from "react";
 
 export const LoginCard = () => {

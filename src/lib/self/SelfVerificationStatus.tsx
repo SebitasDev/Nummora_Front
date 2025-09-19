@@ -51,16 +51,16 @@ export default function SelfVerificationStatus({ sessionId }: Props) {
   } as const;
 
   return (
-    <div style={{
-      marginTop: 8,
-      padding: "6px 12px",
-      borderRadius: 8,
-      background: "#f4f4f4",
-      color: colorMap[status],
-      fontWeight: 600,
-      textAlign: "center",
-    }}>
-      {message}
-    </div>
+      <div style={{
+        marginTop: 8,
+        padding: "6px 12px",
+        borderRadius: 8,
+        background: "#f4f4f4",
+        color: colorMap[status],
+        fontWeight: 600,
+        textAlign: "center",
+      }}>
+        {message}
+      </div>
   );
 }

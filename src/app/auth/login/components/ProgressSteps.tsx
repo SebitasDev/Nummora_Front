@@ -26,7 +26,7 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          mb: 0.5,
+          my: 0.5,
         }}
       >
         <Typography variant="body2" color="text.secondary">

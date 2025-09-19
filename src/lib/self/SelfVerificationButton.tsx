@@ -16,11 +16,10 @@ import {
   Typography,
   CircularProgress,
   Paper,
-  Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { ethers } from "ethers";
-import { SelfAppBuilder, type SelfApp } from "@selfxyz/qrcode";
+import { SelfAppBuilder, type SelfApp } from "@selfxyz/common";
 import { getUniversalLink } from "@selfxyz/core";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -87,8 +86,8 @@ export default function SelfVerificationButton({
             data?.verified === true;
           if (ok) {
             setResultMessage("✅ Verificación exitosa");
-            setShowQR(false);
             onResult?.(data);
+            setShowQR(false);
             if (pollRef.current) {
               window.clearInterval(pollRef.current);
               pollRef.current = null;
@@ -145,7 +144,7 @@ export default function SelfVerificationButton({
         endpointType: "staging_https",
         userIdType: "hex",
         disclosures: { minimumAge: 18, nationality: true, gender: true },
-      }).build();
+      } as any).build();
 
       const link = getUniversalLink(app);
       setSelfApp(app);
@@ -190,10 +189,10 @@ export default function SelfVerificationButton({
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
-          gap: 1,
-          minWidth: 350,
           flexDirection: "column",
+          gap: 1,
+          width: "100%",
+          margin: "0 auto",
         }}
       >
         <Button
@@ -210,27 +209,28 @@ export default function SelfVerificationButton({
             "&.Mui-disabled": {
               backgroundColor: selfVerified ? "#8AD1A4" : "#2563eb",
               color: "#fff",
-              opacity: 0.7, // opcional: le puedes bajar un poco la opacidad
+              opacity: 0.7,
             },
           }}
         >
           {selfVerified ? "Verificado con Self" : "Login con Self"}
         </Button>
 
-        {universalLink && (
-          <Button
-            onClick={openUniversalLink}
-            sx={{
-              backgroundColor: "#059669",
-              color: "#fff",
-              px: 2,
-              "&:hover": { backgroundColor: "#047857" },
-              width: "100%",
-            }}
-          >
-            Abrir en la app
-          </Button>
-        )}
+        {selfVerified ||
+          (universalLink && (
+            <Button
+              onClick={openUniversalLink}
+              sx={{
+                backgroundColor: "#059669",
+                color: "#fff",
+                px: 2,
+                "&:hover": { backgroundColor: "#047857" },
+                width: "100%",
+              }}
+            >
+              Abrir en la app
+            </Button>
+          ))}
       </Box>
       <Dialog
         open={showQR}

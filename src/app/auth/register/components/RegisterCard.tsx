@@ -1,12 +1,12 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
-import { LoginForm } from "../authentication/LoginForm";
-import SelfVerificationButton from "../../../../../../self/frontend/SelfVerificationButton";
-import { ProgressSteps } from "./components/ProgressSteps";
-import { StepLabel } from "./components/StepLabel";
+import { LoginForm } from "../../authentication/LoginForm";
+import SelfVerificationButton from "../../../../lib/self/SelfVerificationButton";
+import { ProgressSteps } from "./ProgressSteps";
+import { StepLabel } from "./StepLabel";
 import { useState } from "react";
-import { RoleGroup } from "./components/RoleGroup";
+import { RoleGroup } from "./RoleGroup";
 import { useLogin } from "../../hooks";
 
 export const RegisterCard = () => {
@@ -20,13 +20,14 @@ export const RegisterCard = () => {
   return (
     <CustomCard
       sx={{
-        width: "80%",
+        p: 1,
+        width: isMdUp ? "80%" : "100%",
         height: "fit-content",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 2,
+        gap: 1,
         boxShadow: "0px",
         border: "0px",
       }}
@@ -53,6 +54,16 @@ export const RegisterCard = () => {
         errors={errors}
         onRoleSelected={setRoleSelected}
       />
+      <Divider
+        variant="fullWidth"
+        sx={{
+          color: "grey.600",
+          fontSize: isMdUp ? 15 : 12,
+          marginY: "1%",
+        }}
+      >
+        y
+      </Divider>
       <StepLabel
         number={2}
         title="Conexión de Billetera"
@@ -76,7 +87,7 @@ export const RegisterCard = () => {
         isDone={selfVerified}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
-      <Box sx={{ mt: -3.5, width: "100%", height: 100 }}>
+      <Box sx={{ mt: -3.5, mb: 2, width: "100%", height: 100 }}>
         <SelfVerificationButton
           onSessionId={setSessionId}
           onResult={(data) => {
@@ -85,6 +96,7 @@ export const RegisterCard = () => {
             }
           }}
           isWalletConnected={walletConnected}
+          selfVerified={selfVerified}
         />
       </Box>
 
