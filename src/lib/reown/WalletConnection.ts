@@ -21,6 +21,7 @@ export const WalletConnection = () => {
       [kairos.id]: http(kairos.rpcUrls.default.http[0]),
     },
     projectId,
+    autoConnect: true,
   });
 
   const modal = createAppKit({
@@ -40,6 +41,7 @@ export const WalletConnection = () => {
     },
     features: {
       analytics: false,
+      connectFirstChain: true,
     },
   });
 
