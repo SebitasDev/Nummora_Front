@@ -47,7 +47,7 @@ export const useInvest = () => {
 
     const response = await financeLoan(mapper.map(loanData, FinanceLoanDto, FinanceLoanPayload))
 
-    toast('Prestamo financiado con exito');
+    toast(`Prestamo financiado con exito`);
   }
 
   return {

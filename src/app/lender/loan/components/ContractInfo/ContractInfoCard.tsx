@@ -1,21 +1,27 @@
 import { Box, Typography, useMediaQuery, useTheme, Stack } from "@mui/material";
+import Theme from "@/theme/theme";
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 
-export const LoanDetailsCard = () => {
+export const ContractInfoCard = () => {
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
+  const theme = Theme;
 
   const loanDetails = [
-    { label: "ID del Préstamo:", value: "LOAN-2024-001" },
-    { label: "Tasa de Interés:", value: "12.5%" },
-    { label: "Plazo:", value: "12 meses" },
-    { label: "Cuota Mensual:", value: "$8.900" },
+    { label: "Numero:", value: "CNT-2024-001" },
+    { label: "Fecha de Firma:", value: "2024-01-14" },
+    { label: "Primer Pago:", value: "2024-02-14" },
+    {
+      label: "Estado legal:",
+      value: "Valido",
+      color: theme.palette.primary.dark,
+    },
   ];
 
   return (
     <CustomCard display="flex" flexDirection="column" gap={3} p={3}>
-      <SectionHeader title="Detalles del Préstamo" />
+      <SectionHeader title="Informacion del Contrato" />
       <Stack spacing={2}>
         {loanDetails.map((detail, index) => (
           <Box
@@ -36,7 +42,7 @@ export const LoanDetailsCard = () => {
             </Typography>
             <Typography
               variant="body1"
-              color="text.secondary"
+              color={detail?.color || "text.secondary"}
               fontSize={isMdUp ? 14 : 11}
               fontWeight="bold"
             >

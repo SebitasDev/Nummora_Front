@@ -1,6 +1,5 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
-import { useShortenedAddress } from "@/app/lender/dashboard/hooks/useShortenedAddress";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import Theme from "@/theme/theme";
 import {
@@ -12,16 +11,30 @@ import {
   useMediaQuery,
   Divider,
 } from "@mui/material";
+import { useShortenedAddress } from "@/app/lender/dashboard/hooks/useShortenedAddress";
 
-export const BorrowerInfoCard = () => {
+interface BorrowerInfoCardProps {
+  borrowerName: string;
+  score: string;
+  paymentAddress: string;
+  totalLoans: string;
+}
+
+export const BorrowerInfoCard = ({
+  borrowerName,
+  score,
+  paymentAddress,
+  totalLoans,
+}: BorrowerInfoCardProps) => {
   const theme = Theme;
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
   const shortenAddress = useShortenedAddress;
+
   return (
     <CustomCard display="flex" flexDirection="column" gap={3} p={3}>
       <SectionHeader
-        title="Informacion del deudor"
+        title="Información del deudor"
         icon={
           <PersonOutlineIcon
             fontSize="large"
@@ -34,16 +47,10 @@ export const BorrowerInfoCard = () => {
           sx={{
             bgcolor: "#f4f5f7",
             color: "#f4f5f7",
-            width: {
-              xs: 35,
-              md: 40,
-            },
-            height: {
-              xs: 35,
-              md: 40,
-            },
+            width: { xs: 35, md: 40 },
+            height: { xs: 35, md: 40 },
           }}
-        ></Avatar>
+        />
         <Stack spacing={1}>
           <Typography
             variant="body2"
@@ -58,7 +65,7 @@ export const BorrowerInfoCard = () => {
               width: "fit-content",
             }}
           >
-            Maria Gonzales
+            {borrowerName}
           </Typography>
           <Typography
             variant="body2"
@@ -66,10 +73,11 @@ export const BorrowerInfoCard = () => {
             fontWeight="bold"
             fontSize={isMdUp ? 14 : 11}
           >
-            Score : 750
+            Score: {score}
           </Typography>
         </Stack>
       </Box>
+
       <Divider />
       <Box
         sx={{
@@ -78,7 +86,6 @@ export const BorrowerInfoCard = () => {
           justifyContent: "space-between",
           height: "0.3rem",
         }}
-        position={"initial"}
       >
         <Typography
           variant="body1"
@@ -86,7 +93,7 @@ export const BorrowerInfoCard = () => {
           fontSize={isMdUp ? 14 : 11}
           fontWeight="bold"
         >
-          Direccion del pago
+          Dirección del pago
         </Typography>
         <Typography
           variant="body1"
@@ -94,7 +101,7 @@ export const BorrowerInfoCard = () => {
           fontSize={isMdUp ? 14 : 11}
           fontWeight="bold"
         >
-          {shortenAddress("0x4c0896bBfA45B0f2F59C758D05F5f12e8456A987")}
+          {shortenAddress(paymentAddress)}
         </Typography>
       </Box>
       <Box
@@ -104,7 +111,6 @@ export const BorrowerInfoCard = () => {
           justifyContent: "space-between",
           height: "0.3rem",
         }}
-        position={"initial"}
       >
         <Typography
           variant="body1"
@@ -112,15 +118,7 @@ export const BorrowerInfoCard = () => {
           fontSize={isMdUp ? 14 : 11}
           fontWeight="bold"
         >
-          Total Prestamos
-        </Typography>
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          fontWeight="bold"
-          fontSize={isMdUp ? 14 : 11}
-        >
-          3 activos
+          Total préstamos {totalLoans}
         </Typography>
       </Box>
     </CustomCard>
