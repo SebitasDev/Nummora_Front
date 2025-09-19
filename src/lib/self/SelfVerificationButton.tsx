@@ -16,11 +16,10 @@ import {
   Typography,
   CircularProgress,
   Paper,
-  Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { ethers } from "ethers";
-import { SelfAppBuilder, type SelfApp } from "@selfxyz/qrcode";
+import { SelfAppBuilder, type SelfApp } from "@selfxyz/common";
 import { getUniversalLink } from "@selfxyz/core";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -87,8 +86,8 @@ export default function SelfVerificationButton({
             data?.verified === true;
           if (ok) {
             setResultMessage("✅ Verificación exitosa");
-            setShowQR(false);
             onResult?.(data);
+            setShowQR(false);
             if (pollRef.current) {
               window.clearInterval(pollRef.current);
               pollRef.current = null;
@@ -104,7 +103,7 @@ export default function SelfVerificationButton({
         } catch {}
       }, 1500);
     },
-    [apiBase],
+    [apiBase]
   );
 
   const buildCallbackUrl = (base: string, sid: string) => {
@@ -125,10 +124,10 @@ export default function SelfVerificationButton({
       if (!endpoint) {
         console.error(
           "[Self] NEXT_PUBLIC_SELF_CALLBACK faltante o inválido (debe ser https). Valor:",
-          publicBase,
+          publicBase
         );
         setResultMessage(
-          "❌ Configuración inválida del endpoint público (SELF_CALLBACK)",
+          "❌ Configuración inválida del endpoint público (SELF_CALLBACK)"
         );
         return;
       }
@@ -136,7 +135,7 @@ export default function SelfVerificationButton({
       const userId = ethers.ZeroAddress;
 
       const app = new SelfAppBuilder({
-        version: 2,  
+        version: 2,
         appName: "Nummora Front",
         scope: process.env.NEXT_PUBLIC_SELF_SCOPE || "nummora-front",
         endpoint,
@@ -145,8 +144,7 @@ export default function SelfVerificationButton({
         endpointType: "staging_https",
         userIdType: "hex",
         disclosures: { minimumAge: 18, nationality: true, gender: true },
-        chainID: 42220
-      }).build();
+      } as any).build();
 
       const link = getUniversalLink(app);
       setSelfApp(app);
