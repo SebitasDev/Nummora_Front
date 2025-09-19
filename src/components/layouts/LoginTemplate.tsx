@@ -1,20 +1,9 @@
 "use client";
 
 import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
-import dynamic from "next/dynamic";
 import React from "react";
 import { NumoraDescription } from "@/app/auth";
 import { LoginCard } from "@/app/auth";
-
-const SelfVerificationButton = dynamic(
-  () => import("../../lib/self/SelfVerificationButton"),
-  { ssr: false }
-);
-
-const SelfVerificationStatus = dynamic(
-  () => import("../../lib/self/SelfVerificationStatus"),
-  { ssr: false }
-);
 
 export const LoginTemplate = () => {
   const themeMUI = useTheme();
@@ -65,6 +54,7 @@ export const LoginTemplate = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
+            height: "100%",
           }}
         >
           <LoginCard />
@@ -103,6 +93,7 @@ export const LoginTemplate = () => {
         sx={{
           mb: 4,
           fontSize: isMdUp ? 14 : 11,
+          textAlign: "center",
         }}
       >
         Tu identidad y billetera están protegidas con encriptación de extremo a

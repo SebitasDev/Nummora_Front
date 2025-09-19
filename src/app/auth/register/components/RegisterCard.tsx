@@ -20,7 +20,8 @@ export const RegisterCard = () => {
   return (
     <CustomCard
       sx={{
-        width: "80%",
+        p: 1,
+        width: isMdUp ? "80%" : "100%",
         height: "fit-content",
         display: "flex",
         flexDirection: "column",
