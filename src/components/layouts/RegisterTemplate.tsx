@@ -65,6 +65,7 @@ export const RegisterTemplate = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
+            height: "100%",
           }}
         >
           <RegisterCard />
@@ -103,6 +104,7 @@ export const RegisterTemplate = () => {
         sx={{
           mb: 2,
           fontSize: isMdUp ? 14 : 11,
+          textAlign: "center",
         }}
       >
         Tu identidad y billetera están protegidas con encriptación de extremo a

@@ -16,8 +16,8 @@ export const useLogin = () => {
         resolver: zodResolver(LoginSchema)
     })
     
-    const onSubmit = async (data: LoginFormData) => {
-        if (parseInt(data.role) === UserRoles.Lender)
+    const onSubmit = async (role: number) => {
+        if (role === UserRoles.Lender)
         {
             if (!client || !user) {
                 throw new Error("Wallet not connected");

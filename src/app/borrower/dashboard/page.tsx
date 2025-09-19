@@ -153,7 +153,7 @@ export default function BorrowerPage() {
 
                         await payInstallmentSignature(
                             BigInt(loanId),
-                            "18c50a86-fc7c-4fdb-b3d7-1b566d7736dd",
+                            "34de6c1e-efde-43bc-bd59-a6810b076460",
                             loan.installmentAmount
                         );
                     }}
