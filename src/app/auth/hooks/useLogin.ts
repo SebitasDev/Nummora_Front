@@ -8,7 +8,7 @@ import {useWalletAccount} from "@/hooks/useWalletAccount";
 
 export const useLogin = () => {
 
-    const { isConnected, user, client } = useWalletAccount();
+    const { isConnected, user, walletClient } = useWalletAccount();
     
     const { push } = useRouter();
     
@@ -19,7 +19,7 @@ export const useLogin = () => {
     const onSubmit = async (role: number) => {
         if (role === UserRoles.Lender)
         {
-            if (!client || !user) {
+            if (!walletClient || !user) {
                 throw new Error("Wallet not connected");
             }
             

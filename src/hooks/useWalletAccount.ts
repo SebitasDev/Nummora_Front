@@ -6,11 +6,6 @@ export const useWalletAccount = () => {
     const { isConnected, address } = useAccount();
     const { data: walletClient } = useWalletClient();
 
-    const client = createWalletClient({
-        chain: liskSepolia,
-        transport: http(),
-    });
-
     const publicClient = createPublicClient({
         chain: liskSepolia,
         transport: http(),
@@ -18,7 +13,6 @@ export const useWalletAccount = () => {
 
     return {
         isConnected,
-        client,
         walletClient,
         publicClient,
         user: address,
