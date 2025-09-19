@@ -29,7 +29,6 @@ export const InvestTemplate = () => {
         overflow: "hidden",
       }}
     >
-      <appkit-button size="md" label={"Conectar Billetera"} />  
       {/* Columna izquierda - Ocupa el espacio restante */}
       <Box
         sx={{
