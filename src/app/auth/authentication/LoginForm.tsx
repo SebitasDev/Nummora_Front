@@ -1,9 +1,8 @@
 "use client";
 
-import { Box } from "@mui/material";
+import {Box, Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import { useLogin } from "@/app/auth/hooks";
-import { useBalance } from "wagmi";
-import React from "react";
+import React, { useState } from "react";
 
 interface LoginFormProps {
   onWalletStatusChange?: (connected: boolean) => void;
@@ -13,6 +12,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   onWalletStatusChange,
 }) => {
   const { handleSubmit, onSubmit, isConnected, account } = useLogin();
+  const [role, setRole] = useState(0);
 
   React.useEffect(() => {
     onWalletStatusChange?.(isConnected);
@@ -21,7 +21,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   return (
     <Box
       component={"form"}
-      onSubmit={handleSubmit(onSubmit)}
       noValidate
       sx={{
         display: "flex",
@@ -32,7 +31,21 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       }}
     >
       <appkit-button size="md" label={"Conectar Billetera"} />
+
+      <FormControl fullWidth>
+        <InputLabel id="role-select-label">Rol</InputLabel>
+        <Select
+          labelId="role-select-label"
+          value={role}
+          label="Rol"
+          onChange={(e) => setRole(Number(e.target.value))}
+        >
+          <MenuItem value={0}>Deudor</MenuItem>
+          <MenuItem value={1}>Prestamista</MenuItem>
+        </Select>
+      </FormControl>
+
+      <Button onClick={async () => await onSubmit(role)}>Ir</Button>
     </Box>
   );
 };
-``;
