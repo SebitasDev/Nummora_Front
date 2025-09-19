@@ -189,10 +189,10 @@ export default function SelfVerificationButton({
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
-          gap: 1,
-          minWidth: 350,
           flexDirection: "column",
+          gap: 1,
+          width: "100%",
+          margin: "0 auto",
         }}
       >
         <Button
