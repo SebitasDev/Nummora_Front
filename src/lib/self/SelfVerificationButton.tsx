@@ -96,7 +96,7 @@ export default function SelfVerificationButton({ onSessionId }: SelfVerification
         endpointType: "staging_https",
         userIdType: "hex",
         disclosures: { minimumAge: 18, nationality: true, gender: true },
-      }).build();
+      } as any).build();
 
       const link = getUniversalLink(app);
       setSelfApp(app);
