@@ -1,4 +1,4 @@
-import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import {useWriteContract, useWaitForTransactionReceipt, useWalletClient} from 'wagmi';
 import { ContractCallProps } from "@/types/contract.interface";
 import { getReferralTag } from "@divvi/referral-sdk";
 import { useAccount } from 'wagmi';
@@ -7,6 +7,7 @@ import { celoAlfajores } from "@reown/appkit/networks";
 export const useContractWrite = () => {
     const { address: user } = useAccount();
     const { writeContractAsync, data: hash, isPending, error } = useWriteContract();
+    const { data: walletClient } = useWalletClient();
 
     const { isLoading: isConfirming, isSuccess: isConfirmed } =
         useWaitForTransactionReceipt({
@@ -19,7 +20,10 @@ export const useContractWrite = () => {
         try {
             if (!ContractAddress || !abi || !functionName) throw new Error("Missing required contract parameters");
 
-            if (!user) throw new Error("Wallet not connected");
+            console.log("wallet client", walletClient)
+            console.log("user", user)
+            
+            if (!user || !walletClient) throw new Error("Wallet not connected");
 
             const referralTag = getReferralTag({
                 user,
@@ -30,6 +34,7 @@ export const useContractWrite = () => {
                 address: ContractAddress,
                 abi,
                 functionName,
+                account: user,
                 args,
                 dataSuffix: `0x${referralTag}` as `0x${string}`,
             });
