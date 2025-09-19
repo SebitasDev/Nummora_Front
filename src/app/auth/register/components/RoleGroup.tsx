@@ -5,6 +5,8 @@ import {
   MenuItem,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Control, Controller, FieldErrors, useWatch } from "react-hook-form";
 import { LoginFormData } from "@/types";
@@ -12,7 +14,6 @@ import { UserRoles } from "@/enums/UserRoles";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PersonIcon from "@mui/icons-material/Person";
-import { ColouredCard } from "@/components/molecules/ColouredCard";
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 
@@ -28,6 +29,8 @@ export const RoleGroup = ({
   onRoleSelected,
 }: RoleGroupProps) => {
   const role = useWatch({ control, name: "role" });
+  const themeMUI = useTheme();
+  const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
   return (
     <Box
       sx={{
@@ -81,6 +84,11 @@ export const RoleGroup = ({
                     return "Selecciona tu rol en la plataforma";
                   },
                 }}
+                sx={{
+                  "& .MuiInputBase-input": {
+                    fontSize: isMdUp ? 18 : 14,
+                  },
+                }}
               >
                 <MenuItem value={UserRoles.Lender.toString()} sx={{ p: 2 }}>
                   <CustomCard
@@ -108,10 +116,18 @@ export const RoleGroup = ({
                       }}
                     />
                     <Box>
-                      <Typography variant="subtitle1" fontWeight="bold">
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight="bold"
+                        fontSize={isMdUp ? 14 : 11}
+                      >
                         Prestamista
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        fontSize={isMdUp ? 14 : 11}
+                      >
                         Invierte tu dinero y obtén rendimientos
                       </Typography>
                     </Box>
@@ -147,10 +163,18 @@ export const RoleGroup = ({
                       }}
                     />
                     <Box>
-                      <Typography variant="subtitle1" fontWeight="bold">
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight="bold"
+                        fontSize={isMdUp ? 14 : 11}
+                      >
                         Deudor
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        fontSize={isMdUp ? 14 : 11}
+                      >
                         Solicita préstamos para tus proyectos
                       </Typography>
                     </Box>
@@ -165,9 +189,7 @@ export const RoleGroup = ({
         />
 
         {errors.role?.message && (
-          <Box sx={{ color: "error.main", fontSize: 13, mt: 0.5 }}>
-            {errors.role.message}
-          </Box>
+          <Box sx={{ color: "error.main", mt: 0.5 }}>{errors.role.message}</Box>
         )}
       </FormControl>
       {role === UserRoles.Lender.toString() && (
@@ -183,8 +205,9 @@ export const RoleGroup = ({
         >
           <SectionHeader
             title="Prestamista"
-            titleSize={18}
+            titleSize={isMdUp ? 18 : 14}
             subtitle="Invierte tu dinero y obtén rendimientos"
+            subtitleSize={isMdUp ? 14 : 11}
           />
         </CustomCard>
       )}
@@ -201,8 +224,9 @@ export const RoleGroup = ({
         >
           <SectionHeader
             title="Deudor"
-            titleSize={18}
+            titleSize={isMdUp ? 18 : 14}
             subtitle="Solicita préstamos para tus proyectos"
+            subtitleSize={isMdUp ? 14 : 11}
           />
         </CustomCard>
       )}
