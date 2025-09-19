@@ -4,7 +4,7 @@ import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import dynamic from "next/dynamic";
 import React from "react";
 import { NumoraDescription } from "@/app/auth";
-import { LoginCard } from "@/app/auth";
+import { RegisterCard } from "@/app/auth";
 
 const SelfVerificationButton = dynamic(
   () => import("../../lib/self/SelfVerificationButton"),
@@ -16,7 +16,7 @@ const SelfVerificationStatus = dynamic(
   { ssr: false }
 );
 
-export const LoginTemplate = () => {
+export const RegisterTemplate = () => {
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
 
@@ -67,7 +67,7 @@ export const LoginTemplate = () => {
             width: "100%",
           }}
         >
-          <LoginCard />
+          <RegisterCard />
         </Box>
       </Box>
       <Stack
@@ -101,7 +101,7 @@ export const LoginTemplate = () => {
       </Stack>
       <Typography
         sx={{
-          mb: 4,
+          mb: 2,
           fontSize: isMdUp ? 14 : 11,
         }}
       >
