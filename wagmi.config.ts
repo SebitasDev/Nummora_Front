@@ -1,7 +1,5 @@
-import { defineConfig } from '@wagmi/cli'
+import { WalletConnection } from "@/lib/reown/WalletConnection";
 
-export default defineConfig({
-  out: 'src/generated.ts',
-  contracts: [],
-  plugins: [],
-})
+const { wagmiAdapter } = WalletConnection();
+
+export const wagmiConfig = wagmiAdapter.wagmiConfig;

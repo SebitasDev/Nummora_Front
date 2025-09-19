@@ -20,7 +20,8 @@ export const useContractWrite = () => {
         try {
             if (!ContractAddress || !abi || !functionName) throw new Error("Missing required contract parameters");
 
-            console.log(walletClient)
+            console.log("wallet client", walletClient)
+            console.log("user", user)
             
             if (!user || !walletClient) throw new Error("Wallet not connected");
 
