@@ -8,7 +8,7 @@ import { StepLabel } from "./StepLabel";
 import { useState } from "react";
 
 export const LoginCard = () => {
-  const [sessionId, setSessionId] = useState("");
+  const [_, setSessionId] = useState("");
   const [selfVerified, setSelfVerified] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
   const themeMUI = useTheme();
@@ -44,7 +44,7 @@ export const LoginCard = () => {
         isDone={walletConnected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
-      <LoginForm onWalletStatusChange={setWalletConnected} />
+      <LoginForm onWalletStatusChange={setWalletConnected} isRegister={false} />
       <Divider
         variant="fullWidth"
         sx={{
