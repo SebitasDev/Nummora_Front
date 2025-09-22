@@ -6,12 +6,14 @@ import React, { useState } from "react";
 
 interface LoginFormProps {
   onWalletStatusChange?: (connected: boolean) => void;
+  isRegister?: boolean;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({
   onWalletStatusChange,
+  isRegister = true  
 }) => {
-  const { handleSubmit, onSubmit, isConnected, account } = useLogin();
+  const { onSubmit, isConnected } = useLogin();
   const [role, setRole] = useState(0);
 
   React.useEffect(() => {
@@ -31,21 +33,25 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       }}
     >
       <appkit-button size="md" label={"Conectar Billetera"} />
+        
+      {!isRegister && (
+          <>
+              <FormControl fullWidth>
+                  <InputLabel id="role-select-label">Rol</InputLabel>
+                  <Select
+                      labelId="role-select-label"
+                      value={role}
+                      label="Rol"
+                      onChange={(e) => setRole(Number(e.target.value))}
+                  >
+                      <MenuItem value={0}>Deudor</MenuItem>
+                      <MenuItem value={1}>Prestamista</MenuItem>
+                  </Select>
+              </FormControl>
 
-      <FormControl fullWidth>
-        <InputLabel id="role-select-label">Rol</InputLabel>
-        <Select
-          labelId="role-select-label"
-          value={role}
-          label="Rol"
-          onChange={(e) => setRole(Number(e.target.value))}
-        >
-          <MenuItem value={0}>Deudor</MenuItem>
-          <MenuItem value={1}>Prestamista</MenuItem>
-        </Select>
-      </FormControl>
-
-      <Button onClick={async () => await onSubmit(role)}>Ir</Button>
+              <Button onClick={async () => await onSubmit(role)}>Ir</Button>
+          </>
+      )}
     </Box>
   );
 };

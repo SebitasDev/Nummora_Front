@@ -1,6 +1,6 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
-import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
+import {Box, Button, Divider, useMediaQuery, useTheme} from "@mui/material";
 import { LoginForm } from "../../authentication/LoginForm";
 import SelfVerificationButton from "../../../../lib/self/SelfVerificationButton";
 import { ProgressSteps } from "./ProgressSteps";
@@ -8,15 +8,18 @@ import { StepLabel } from "./StepLabel";
 import { useState } from "react";
 import { RoleGroup } from "./RoleGroup";
 import { useLogin } from "../../hooks";
+import {useRegister} from "@/app/auth/register/hooks/useRegister";
 
 export const RegisterCard = () => {
-  const [sessionId, setSessionId] = useState("");
-  const [roleSelected, setRoleSelected] = useState(false);
+  const [_, setSessionId] = useState("");
+  const [roleIsSelected, setIsRoleSelected] = useState(false);
+  const [roleSelected, setRoleSelected] = useState(Number);
   const [selfVerified, setSelfVerified] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
   const { errors, control } = useLogin();
+  const { onRegisterUser } = useRegister();
   return (
     <CustomCard
       sx={{
@@ -33,8 +36,8 @@ export const RegisterCard = () => {
       }}
     >
       <SectionHeader
-        title={"Iniciar sesión"}
-        subtitle="Completa ambos pasos para acceder"
+        title={"Registrarse"}
+        subtitle="Completa los 3 pasos para registrarte"
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -46,13 +49,14 @@ export const RegisterCard = () => {
       <StepLabel
         number={1}
         title="Tipo de Usuario"
-        isDone={roleSelected}
+        isDone={roleIsSelected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
       <RoleGroup
         control={control}
         errors={errors}
-        onRoleSelected={setRoleSelected}
+        onIsRoleSelected={setIsRoleSelected}
+        OnRoleSelected={setRoleSelected}
       />
       <Divider
         variant="fullWidth"
@@ -71,6 +75,9 @@ export const RegisterCard = () => {
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
       <LoginForm onWalletStatusChange={setWalletConnected} />
+      <Button onClick={async () => await onRegisterUser(roleSelected) }>
+          Registrarse ( Self no funcionando )
+      </Button> 
       <Divider
         variant="fullWidth"
         sx={{
@@ -101,7 +108,7 @@ export const RegisterCard = () => {
       </Box>
 
       <ProgressSteps
-        roleSelected={roleSelected}
+        roleSelected={roleIsSelected}
         selfVerified={selfVerified}
         walletConnected={walletConnected}
       />

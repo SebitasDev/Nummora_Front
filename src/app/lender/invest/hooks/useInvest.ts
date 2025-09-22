@@ -4,12 +4,11 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import {useContractWrite} from "@/hooks/useContractWrite";
 import {NummoraLoanAbi} from "@/contracts";
 import {useWalletAccount} from "@/hooks/useWalletAccount";
-import {Address, encodePacked, keccak256, parseEther} from "viem";
+import {Address, encodePacked, keccak256} from "viem";
 import {financeLoan, FinanceLoanPayload} from "@/api/loan/financeLoan";
 import {mapper} from "@/mappers/mapper";
 import {FinanceLoanDto} from "@/interfaces/financeLoanDto";
 import {toast} from "react-toastify";
-import { useEffect } from "react";
 
 export const useInvest = () => {
   const { amount, setAmount } = useInvestAmountStore();
@@ -32,23 +31,33 @@ export const useInvest = () => {
   }
 
   const acceptLoan = async (loanId: string) => {
-    const loanData: FinanceLoanDto = {
-      loanId,
-      lender: user as Address,
-      dataHash: null as unknown as Address
-    };
-    
-    loanData.dataHash = keccak256(
-        encodePacked(
-            ['string', 'address'],
-            [ loanData.loanId, loanData.lender ]
-        )
-    );
+    try {
+      const loanData: FinanceLoanDto = {
+        loanId,
+        lender: user as Address,
+        dataHash: null as unknown as Address,
+      };
 
-    const response = await financeLoan(mapper.map(loanData, FinanceLoanDto, FinanceLoanPayload))
+      loanData.dataHash = keccak256(
+          encodePacked(
+              ['string', 'address'],
+              [loanData.loanId, loanData.lender],
+          ),
+      );
 
-    toast(`Prestamo financiado con exito`);
-  }
+      const response = await financeLoan(
+          mapper.map(loanData, FinanceLoanDto, FinanceLoanPayload),
+      );
+
+      toast.success(response.success);
+
+      return { success: true, message: 'Préstamo financiado con éxito', data: response };
+    } catch (e: any) {
+      toast.error(`❌ Error al financiar préstamo: ${e?.message ?? 'Error desconocido'}`);
+      return { success: false, error: e?.message ?? 'Error desconocido' };
+    }
+  };
+
 
   return {
     amount,

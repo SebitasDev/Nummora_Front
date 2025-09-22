@@ -20,13 +20,15 @@ import SectionHeader from "@/components/atoms/SectionHeader";
 interface RoleGroupProps {
   control: Control<LoginFormData>;
   errors: FieldErrors<LoginFormData>;
-  onRoleSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  onIsRoleSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  OnRoleSelected: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const RoleGroup = ({
   control,
   errors,
-  onRoleSelected,
+  onIsRoleSelected,
+  OnRoleSelected  
 }: RoleGroupProps) => {
   const role = useWatch({ control, name: "role" });
   const themeMUI = useTheme();
@@ -63,7 +65,8 @@ export const RoleGroup = ({
                 fullWidth
                 onChange={(event) => {
                   field.onChange(event);
-                  onRoleSelected(!!event.target.value);
+                  OnRoleSelected(Number(event.target.value));
+                  onIsRoleSelected(!!event.target.value);
                 }}
                 InputProps={{
                   startAdornment: field.value ? (
