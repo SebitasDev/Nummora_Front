@@ -6,8 +6,11 @@ import { AttachMoney } from "@mui/icons-material";
 import Theme from "@/theme/theme";
 import {useBorrowerDashboard} from "@/app/borrower/dashboard/hooks/useBorrowerDashboard";
 import {formatEther} from "viem";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 
 export default function BorrowerPage() {
+    useAuthGuard();
+    
     const [loanId, setLoanId] = useState(0);
     const theme = Theme
     const { searchLoanById, loan, payInstallment, payEarly, payInstallmentSignature, signInstallment } = useBorrowerDashboard();

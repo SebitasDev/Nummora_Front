@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/*import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import {jwtVerify} from "jose";
 
@@ -20,3 +20,4 @@ export async function middleware(req: NextRequest) {
 export const config = {
     matcher: ["/lender/:path*", "/borrower/:path*"]
 };
+*/
