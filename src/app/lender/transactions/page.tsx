@@ -1,3 +1,5 @@
+"use client";
+
 import TransactionsHistoryTemplate from "@/components/layouts/pageLayouts/TransactionsHistoryTemplate";
 import {useAuthGuard} from "@/hooks/useAuthGuard";
 
