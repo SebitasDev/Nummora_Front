@@ -26,6 +26,15 @@ const baseConfig: NextConfig = {
             },
         ]
     },
+
+    async rewrites() {
+        return [
+            {
+                source: '/:path*',
+                destination: '/',
+            },
+        ]
+    },
 }
 
 const nextConfig = withPWA({
