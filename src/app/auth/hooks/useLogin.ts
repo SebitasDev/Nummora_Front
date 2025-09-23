@@ -38,6 +38,7 @@ export const useLogin = () => {
             });
 
             if (response.success){
+                localStorage.setItem("authToken", response.data!.access_token);
                 role === UserRoles.Lender ? push('/lender/dashboard') 
                     : push('/borrower/dashboard');
             }
