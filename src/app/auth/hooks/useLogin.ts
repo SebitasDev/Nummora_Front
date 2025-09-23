@@ -5,6 +5,8 @@ import {LoginFormData} from "@/types";
 import {useRouter} from "next/navigation";
 import {UserRoles} from "@/enums/UserRoles";
 import {useWalletAccount} from "@/hooks/useWalletAccount";
+import {Address, encodePacked, keccak256, toBytes} from "viem";
+import {login} from "@/api/auth/login";
 
 export const useLogin = () => {
 
@@ -17,24 +19,31 @@ export const useLogin = () => {
     })
     
     const onSubmit = async (role: number) => {
-        if (role === UserRoles.Lender)
-        {
+        try {
             if (!walletClient || !user) {
                 throw new Error("Wallet not connected");
             }
             
-            /*const balance = await write<bigint>({
-                ContractAddress: process.env.NEXT_PUBLIC_NUMMUS_TOKEN_ADDRESS as `0x${string}`,
-                abi: NummusTokenAbi,
-                functionName: "balanceOf",
-                args: [user]
-            });*/
+            const message = "Login to Nummora";
 
+            const signature = await walletClient.signMessage({
+                account: walletClient.account,
+                message,
+            });
             
-            push('/lender/dashboard');
+            const response = await login({
+                userAddress: user as Address,
+                signature,
+                userRole: role,
+            });
+
+            if (response.success){
+                role === UserRoles.Lender ? push('/lender/dashboard') 
+                    : push('/borrower/dashboard');
+            }
+        }catch (e) {
+            console.log(e);
         }
-        else 
-            push('/borrower/dashboard');
     }
     
     return {

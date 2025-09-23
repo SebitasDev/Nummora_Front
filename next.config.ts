@@ -21,7 +21,7 @@ const baseConfig: NextConfig = {
         return [
             {
                 source: '/',
-                destination: '/lender/dashboard',
+                destination: '/auth/login',
                 permanent: false,
             },
         ]
