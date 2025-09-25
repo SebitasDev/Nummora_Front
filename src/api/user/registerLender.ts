@@ -13,6 +13,7 @@ interface RegisterLenderResponse {
 
 export async function registerLender(payload: RegisterLenderPayload): Promise<ApiResponse<RegisterLenderResponse>> {
     try {
+        console.log(payload.userAddress)
         const { data } = await httpClient.post("/user/register-lender", payload);
         return data as ApiResponse<RegisterLenderResponse>;
     }catch (e: any){
