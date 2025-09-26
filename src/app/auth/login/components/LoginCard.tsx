@@ -8,13 +8,18 @@ import {
   StepLabel,
   ConnectWalletButton,
 } from "@/app/auth/components";
+import { useLogin } from "../hooks/useLogin";
+import { RoleGroup } from "../../components/RoleGroup";
 
 export const LoginCard = () => {
   const [_, setSessionId] = useState("");
   const [selfVerified, setSelfVerified] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
+  const [roleIsSelected, setIsRoleSelected] = useState(false);
+  const [roleSelected, setRoleSelected] = useState(Number);
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
+  const { errors, control, onSubmit } = useLogin();
   return (
     <CustomCard
       sx={{
@@ -75,10 +80,33 @@ export const LoginCard = () => {
           isWalletConnected={walletConnected}
         />
       </Box>
-
+      <Divider
+        variant="fullWidth"
+        sx={{
+          color: "grey.600",
+          fontSize: isMdUp ? 15 : 12,
+        }}
+      >
+        y
+      </Divider>
+      <StepLabel
+        number={3}
+        title="Tipo de Usuario"
+        isDone={roleIsSelected}
+        sx={{ fontSize: isMdUp ? 14 : 11 }}
+      />
+      <RoleGroup
+        control={control}
+        errors={errors}
+        onIsRoleSelected={setIsRoleSelected}
+        OnRoleSelected={setRoleSelected}
+        previousStepCompleted={selfVerified && walletConnected}
+      />
       <ProgressSteps
         selfVerified={selfVerified}
         walletConnected={walletConnected}
+        roleSelected={roleIsSelected}
+        onAllStepsCompleted={() => onSubmit(roleSelected)}
       />
     </CustomCard>
   );

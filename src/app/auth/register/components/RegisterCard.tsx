@@ -3,9 +3,7 @@ import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Button, Divider, useMediaQuery, useTheme } from "@mui/material";
 import SelfVerificationButton from "@/lib/self/SelfVerificationButton";
-
-import { RoleGroup } from "./RoleGroup";
-import { useAuth } from "../../hooks";
+import { RoleGroup } from "../../components/RoleGroup";
 import { useRegister } from "@/app/auth/register/hooks/useRegister";
 import {
   ProgressSteps,
@@ -21,8 +19,8 @@ export const RegisterCard = () => {
   const [walletConnected, setWalletConnected] = useState(false);
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
-  const { errors, control } = useAuth();
-  const { onRegisterUser } = useRegister();
+  const { onRegisterUser, errors, control } = useRegister();
+
   return (
     <CustomCard
       sx={{

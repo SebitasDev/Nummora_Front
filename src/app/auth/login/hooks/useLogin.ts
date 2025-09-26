@@ -3,15 +3,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/lib/zod/authShema";
 import { LoginFormData } from "@/types";
 import { useRouter } from "next/navigation";
-import { UserRoles } from "@/enums/UserRoles";
-import { useWalletAccount } from "@/hooks/useWalletAccount";
-import { Address } from "viem";
+import { useWalletAuth } from "@/app/auth/hooks/useWalletAccount";
 import { login } from "@/api/auth/login";
+import { UserRoles } from "@/enums/UserRoles";
 
-export const useAuth = () => {
-  const { isConnected, user, walletClient } = useWalletAccount();
-
+export const useLogin = () => {
   const { push } = useRouter();
+  const { isConnected, account, signMessage } = useWalletAuth();
 
   const {
     register,
@@ -24,22 +22,14 @@ export const useAuth = () => {
 
   const onSubmit = async (role: number) => {
     try {
-      if (!walletClient || !user) {
-        throw new Error("Wallet not connected");
-      }
-
-      const message = "Login to Nummora";
-
-      const signature = await walletClient.signMessage({
-        account: walletClient.account,
-        message,
-      });
+      const { signature, user } = await signMessage("Login to Nummora");
 
       const response = await login({
-        userAddress: user as Address,
+        userAddress: user,
         signature,
         userRole: role,
       });
+      console.log("Login response:", response);
 
       if (response.success) {
         role === UserRoles.Lender
@@ -47,7 +37,7 @@ export const useAuth = () => {
           : push("/borrower/dashboard");
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -55,9 +45,9 @@ export const useAuth = () => {
     register,
     handleSubmit,
     errors,
-    onSubmit,
     control,
+    onSubmit,
     isConnected,
-    account: user,
+    account,
   };
 };
