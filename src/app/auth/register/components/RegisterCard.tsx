@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Button, Divider, useMediaQuery, useTheme } from "@mui/material";
-import SelfVerificationButton from "../../../../lib/self/SelfVerificationButton";
+import SelfVerificationButton from "@/lib/self/SelfVerificationButton";
 
-import { useState } from "react";
 import { RoleGroup } from "./RoleGroup";
-import { useLogin } from "../../hooks";
+import { useAuth } from "../../hooks";
 import { useRegister } from "@/app/auth/register/hooks/useRegister";
 import {
   ProgressSteps,
@@ -21,7 +21,7 @@ export const RegisterCard = () => {
   const [walletConnected, setWalletConnected] = useState(false);
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
-  const { errors, control } = useLogin();
+  const { errors, control } = useAuth();
   const { onRegisterUser } = useRegister();
   return (
     <CustomCard

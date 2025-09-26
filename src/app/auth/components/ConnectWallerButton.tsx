@@ -1,7 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { useLogin } from "@/app/auth/hooks";
+import { useAuth } from "@/app/auth/hooks";
 import React, { useEffect } from "react";
 
 interface ConnectWalletButtonProps {
@@ -11,7 +11,7 @@ interface ConnectWalletButtonProps {
 export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   onWalletStatusChange,
 }) => {
-  const { isConnected } = useLogin();
+  const { isConnected } = useAuth();
 
   useEffect(() => {
     onWalletStatusChange?.(isConnected);
