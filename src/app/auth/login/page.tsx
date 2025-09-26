@@ -1,7 +1,12 @@
-'use client'
+"use client";
 
-import {LoginTemplate} from "@/components/layouts/LoginTemplate";
+import { AuthTemplate } from "@/components/layouts/AuthTemplate";
+import { LoginCard } from "./components/LoginCard";
 
-export default function LoginPage(){
-    return <LoginTemplate/>
+export default function LoginPage() {
+  return (
+    <AuthTemplate>
+      <LoginCard />
+    </AuthTemplate>
+  );
 }

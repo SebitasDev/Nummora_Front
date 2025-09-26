@@ -5,21 +5,24 @@ import { Box, LinearProgress, Typography } from "@mui/material";
 
 interface ProgressStepsProps {
   selfVerified: boolean;
-  walletConnected: boolean;
-  roleSelected: boolean;
+  walletConnected?: boolean;
+  roleSelected?: boolean;
 }
 
-export const ProgressSteps: React.FC<ProgressStepsProps> = ({
+export const ProgressSteps = ({
   selfVerified,
-  walletConnected,
+  walletConnected = false,
   roleSelected,
-}) => {
+}: ProgressStepsProps) => {
   let completedSteps = 0;
-  if (roleSelected) completedSteps += 1;
+
+  const includeRoleStep = roleSelected !== undefined;
+  const totalSteps = includeRoleStep ? 3 : 2;
+
+  if (includeRoleStep && roleSelected) completedSteps += 1;
   if (selfVerified) completedSteps += 1;
   if (walletConnected) completedSteps += 1;
 
-  const totalSteps = 3;
   const progress = (completedSteps / totalSteps) * 100;
 
   return (
