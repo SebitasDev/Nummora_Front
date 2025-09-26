@@ -4,7 +4,7 @@ import { Box, useTheme } from "@mui/material";
 import { PaymentConfirmation } from "@/app/lender/payment/components/Payment/PaymentConfirmation";
 import { LoanProgress } from "@/app/lender/payment/components/LoanProgress/LoanProgress";
 import { PaymentSchedule } from "@/app/lender/payment/components/PaymentSchedule/PaymentSchedule";
-import { BorrowerInfoCard } from "@/app/lender/general-components/BorrowerInfoCard";
+import { BorrowerInfoCard } from "@/app/lender/components/BorrowerInfoCard";
 import { LoanDetailsCard } from "@/app/lender/payment/components/LoanDetails/LoanDetailsCard";
 import { QuickActionsCard } from "@/app/lender/payment/components/QuickActions/QuickActionsCard";
 

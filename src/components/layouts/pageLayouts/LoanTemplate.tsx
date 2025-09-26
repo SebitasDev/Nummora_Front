@@ -3,7 +3,7 @@
 import { Box, Modal, useTheme } from "@mui/material";
 import { LoanSummary } from "@/app/lender/loan/components/LoanSummary/LoanSummary";
 import { PaymentSchedule } from "@/app/lender/loan/components/PaymentSchedule/PaymentSchedule";
-import { BorrowerInfoCard } from "@/app/lender/general-components/BorrowerInfoCard";
+import { BorrowerInfoCard } from "@/app/lender/components/BorrowerInfoCard";
 import { ContractInfoCard } from "@/app/lender/loan/components/ContractInfo/ContractInfoCard";
 import { RiskEvaluationCard } from "@/app/lender/loan/components/RiskEvaluationCard/RiskEvaluationCard";
 import { QuickActionsCard } from "@/app/lender/loan/components/QuickActions/QuickActionsCard";

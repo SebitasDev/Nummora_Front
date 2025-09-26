@@ -1,7 +1,12 @@
 "use client";
 
-import { RegisterTemplate } from "@/components/layouts/RegisterTemplate";
+import { AuthTemplate } from "@/components/layouts/AuthTemplate";
+import { RegisterCard } from "./components/RegisterCard";
 
-export default function RegisterPage() {
-  return <RegisterTemplate />;
+export default function LoginPage() {
+  return (
+    <AuthTemplate>
+      <RegisterCard />
+    </AuthTemplate>
+  );
 }

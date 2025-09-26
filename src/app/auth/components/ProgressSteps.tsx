@@ -1,18 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, LinearProgress, Typography } from "@mui/material";
 
 interface ProgressStepsProps {
   selfVerified: boolean;
   walletConnected: boolean;
   roleSelected: boolean;
+  onAllStepsCompleted?: () => void;
 }
 
 export const ProgressSteps: React.FC<ProgressStepsProps> = ({
   selfVerified,
   walletConnected,
   roleSelected,
+  onAllStepsCompleted,
 }) => {
   let completedSteps = 0;
   if (roleSelected) completedSteps += 1;
@@ -21,6 +23,11 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
 
   const totalSteps = 3;
   const progress = (completedSteps / totalSteps) * 100;
+  useEffect(() => {
+    if (completedSteps === totalSteps) {
+      onAllStepsCompleted?.();
+    }
+  }, [completedSteps]);
 
   return (
     <Box sx={{ width: "100%" }}>
