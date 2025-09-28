@@ -132,6 +132,7 @@ export default function SelfVerificationButton({
         return;
       }
 
+      //TODO: Change with real user address
       const userId = ethers.ZeroAddress;
 
       const app = new SelfAppBuilder({
@@ -144,6 +145,7 @@ export default function SelfVerificationButton({
         endpointType: "staging_https",
         userIdType: "hex",
         disclosures: { minimumAge: 18, nationality: true, gender: true },
+        chainID: 11142220,
       } as any).build();
 
       const link = getUniversalLink(app);
