@@ -22,7 +22,6 @@ interface RoleGroupProps {
   errors: FieldErrors<LoginFormData>;
   onIsRoleSelected: React.Dispatch<React.SetStateAction<boolean>>;
   OnRoleSelected: React.Dispatch<React.SetStateAction<number>>;
-  previousStepCompleted?: boolean;
 }
 
 export const RoleGroup = ({
@@ -30,7 +29,6 @@ export const RoleGroup = ({
   errors,
   onIsRoleSelected,
   OnRoleSelected,
-  previousStepCompleted = true,
 }: RoleGroupProps) => {
   const role = useWatch({ control, name: "role" });
   const themeMUI = useTheme();
@@ -64,7 +62,6 @@ export const RoleGroup = ({
                 {...field}
                 hiddenLabel
                 select
-                disabled={!previousStepCompleted}
                 fullWidth
                 onChange={(event) => {
                   field.onChange(event);

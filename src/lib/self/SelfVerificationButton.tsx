@@ -223,22 +223,6 @@ export default function SelfVerificationButton({
         >
           {selfVerified ? "Verificado con Self" : "Login con Self"}
         </Button>
-
-        {selfVerified ||
-          (universalLink && (
-            <Button
-              onClick={openUniversalLink}
-              sx={{
-                backgroundColor: "#059669",
-                color: "#fff",
-                px: 2,
-                "&:hover": { backgroundColor: "#047857" },
-                width: "100%",
-              }}
-            >
-              Abrir en la app
-            </Button>
-          ))}
       </Box>
       <Dialog
         open={showQR}
@@ -308,7 +292,7 @@ export default function SelfVerificationButton({
           <Paper
             variant="outlined"
             sx={{
-              mt: 3,
+              my: 1.5,
               p: 2,
               borderRadius: 2,
               backgroundColor: "#EFF6FF",
@@ -332,6 +316,20 @@ export default function SelfVerificationButton({
               Descargar Self
             </Button>
           </Paper>
+
+          <Button
+            onClick={openUniversalLink}
+            sx={{
+              backgroundColor: "#059669",
+              color: "#fff",
+              borderRadius: 2,
+              px: 2,
+              "&:hover": { backgroundColor: "#047857" },
+              width: "100%",
+            }}
+          >
+            Abrir en la app
+          </Button>
 
           <Button
             onClick={cerrarQR}

@@ -1,4 +1,4 @@
-import { ConnectWalletButton } from "./ConnectWallerButton";
+import { ConnectWalletButton } from "./ConnectWalletButton";
 import { ProgressSteps } from "./ProgressSteps";
 import { NumoraDescription } from "./NumoraDescription";
 import { StepLabel } from "./StepLabel";

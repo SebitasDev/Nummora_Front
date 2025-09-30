@@ -23,7 +23,6 @@ export const AuthTemplate = ({ children }: AuthTemplateProps) => {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        height: "100%",
         background: "#edfdf4",
         width: "100%",
       }}
@@ -33,6 +32,7 @@ export const AuthTemplate = ({ children }: AuthTemplateProps) => {
           display: "flex",
           flexDirection: "column",
           height: "100%",
+          alignItems: "center",
           width: isMdUp ? "100%" : "80%",
           [themeMUI.breakpoints.up("md")]: {
             display: "grid",
@@ -59,7 +59,7 @@ export const AuthTemplate = ({ children }: AuthTemplateProps) => {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
-            height: "100%",
+            minHeight: "500px",
           }}
         >
           {children}

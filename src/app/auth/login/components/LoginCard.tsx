@@ -1,6 +1,6 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
-import {Box, Button, Divider, useMediaQuery, useTheme} from "@mui/material";
+import { Box, Button, Divider, useMediaQuery, useTheme } from "@mui/material";
 import SelfVerificationButton from "@/lib/self/SelfVerificationButton";
 import { useState } from "react";
 import {
@@ -23,15 +23,14 @@ export const LoginCard = () => {
   return (
     <CustomCard
       sx={{
-        height: "fit-content",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 2,
         boxShadow: "0px",
         border: "0px",
         width: "100%",
+        height: "100%",
       }}
     >
       <SectionHeader
@@ -48,6 +47,30 @@ export const LoginCard = () => {
       />
       <StepLabel
         number={1}
+        title="Tipo de Usuario"
+        isDone={roleIsSelected}
+        sx={{ fontSize: isMdUp ? 14 : 11 }}
+      />
+      <RoleGroup
+        control={control}
+        errors={errors}
+        onIsRoleSelected={setIsRoleSelected}
+        OnRoleSelected={setRoleSelected}
+      />
+      <Button onClick={() => onSubmit(roleSelected)}>
+        IF SELF NOT WORKING
+      </Button>
+      <Divider
+        variant="fullWidth"
+        sx={{
+          color: "grey.600",
+          fontSize: isMdUp ? 15 : 12,
+        }}
+      >
+        y
+      </Divider>
+      <StepLabel
+        number={2}
         title="Conexión de Billetera"
         isDone={walletConnected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -63,7 +86,7 @@ export const LoginCard = () => {
         y
       </Divider>
       <StepLabel
-        number={2}
+        number={3}
         title="Verificación de identidad"
         isDone={selfVerified}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -80,31 +103,7 @@ export const LoginCard = () => {
           isWalletConnected={walletConnected}
         />
       </Box>
-      <Divider
-        variant="fullWidth"
-        sx={{
-          color: "grey.600",
-          fontSize: isMdUp ? 15 : 12,
-        }}
-      >
-        y
-      </Divider>
-      <StepLabel
-        number={3}
-        title="Tipo de Usuario"
-        isDone={roleIsSelected}
-        sx={{ fontSize: isMdUp ? 14 : 11 }}
-      />
-      <RoleGroup
-        control={control}
-        errors={errors}
-        onIsRoleSelected={setIsRoleSelected}
-        OnRoleSelected={setRoleSelected}
-        previousStepCompleted={walletConnected}
-      />
-        <Button
-            onClick={() => onSubmit(roleSelected)}
-        >IF SELF NOT WORKING</Button>
+
       <ProgressSteps
         selfVerified={selfVerified}
         walletConnected={walletConnected}
