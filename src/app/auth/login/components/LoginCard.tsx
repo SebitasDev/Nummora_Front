@@ -48,6 +48,18 @@ export const LoginCard = () => {
       />
       <StepLabel
         number={1}
+        title="Tipo de Usuario"
+        isDone={roleIsSelected}
+        sx={{ fontSize: isMdUp ? 14 : 11 }}
+      />
+      <RoleGroup
+        control={control}
+        errors={errors}
+        onIsRoleSelected={setIsRoleSelected}
+        OnRoleSelected={setRoleSelected}
+      />
+      <StepLabel
+        number={2}
         title="Conexión de Billetera"
         isDone={walletConnected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -63,7 +75,7 @@ export const LoginCard = () => {
         y
       </Divider>
       <StepLabel
-        number={2}
+        number={3}
         title="Verificación de identidad"
         isDone={selfVerified}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
@@ -89,19 +101,7 @@ export const LoginCard = () => {
       >
         y
       </Divider>
-      <StepLabel
-        number={3}
-        title="Tipo de Usuario"
-        isDone={roleIsSelected}
-        sx={{ fontSize: isMdUp ? 14 : 11 }}
-      />
-      <RoleGroup
-        control={control}
-        errors={errors}
-        onIsRoleSelected={setIsRoleSelected}
-        OnRoleSelected={setRoleSelected}
-        previousStepCompleted={selfVerified && walletConnected}
-      />
+
       <ProgressSteps
         selfVerified={selfVerified}
         walletConnected={walletConnected}
