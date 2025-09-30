@@ -9,7 +9,7 @@ export class LoginPayload {
 }
 
 interface LoginResponse {
-    txHash?: Address;
+    access_token: string;
 }
 
 export async function login(payload: LoginPayload): Promise<ApiResponse<LoginResponse>> {

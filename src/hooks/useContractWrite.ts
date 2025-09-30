@@ -1,8 +1,8 @@
 import {useWriteContract, useWaitForTransactionReceipt, useWalletClient} from 'wagmi';
 import { ContractCallProps } from "@/types/contract.interface";
-import { getReferralTag } from "@divvi/referral-sdk";
+import {getReferralTag, submitReferral} from "@divvi/referral-sdk";
 import { useAccount } from 'wagmi';
-import { celoAlfajores } from "@reown/appkit/networks";
+import {celo} from "@reown/appkit/networks";
 
 export const useContractWrite = () => {
     const { address: user } = useAccount();
@@ -21,7 +21,7 @@ export const useContractWrite = () => {
             if (!ContractAddress || !abi || !functionName) throw new Error("Missing required contract parameters");
             
             if (!user || !walletClient) throw new Error("Wallet not connected");
-
+            
             const referralTag = getReferralTag({
                 user,
                 consumer: process.env.NEXT_PUBLIC_DIVVI_CONSUMER as `0x${string}`,
@@ -36,9 +36,9 @@ export const useContractWrite = () => {
                 dataSuffix: `0x${referralTag}` as `0x${string}`,
             });
 
-            const chainId = celoAlfajores.id;
+            const chainId = celo.id;
 
-            //await submitReferral({ txHash, chainId });
+            await submitReferral({ txHash, chainId });
 
             return txHash;
         } catch (error) {

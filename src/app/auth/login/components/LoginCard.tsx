@@ -1,6 +1,6 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
-import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
+import {Box, Button, Divider, useMediaQuery, useTheme} from "@mui/material";
 import SelfVerificationButton from "@/lib/self/SelfVerificationButton";
 import { useState } from "react";
 import {
@@ -100,8 +100,11 @@ export const LoginCard = () => {
         errors={errors}
         onIsRoleSelected={setIsRoleSelected}
         OnRoleSelected={setRoleSelected}
-        previousStepCompleted={selfVerified && walletConnected}
+        previousStepCompleted={walletConnected}
       />
+        <Button
+            onClick={() => onSubmit(roleSelected)}
+        >IF SELF NOT WORKING</Button>
       <ProgressSteps
         selfVerified={selfVerified}
         walletConnected={walletConnected}

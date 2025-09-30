@@ -136,6 +136,7 @@ export default function SelfVerificationButton({
         return;
       }
 
+      //TODO: Change with real user address
       const userId = ethers.ZeroAddress;
 
       const app = new SelfAppBuilder({
@@ -145,9 +146,11 @@ export default function SelfVerificationButton({
         endpoint,
         logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
         userId,
-        endpointType: "staging_https",
+        endpointType: "https",
         userIdType: "hex",
         disclosures: { minimumAge: 18, nationality: true, gender: true },
+        userDefinedData: "Welcome to Nummora",
+        chainID: 11142220,
       } as any).build();
 
       const link = getUniversalLink(app);
