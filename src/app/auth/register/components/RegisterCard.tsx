@@ -1,14 +1,15 @@
+import { useState } from "react";
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
-import {Box, Button, Divider, useMediaQuery, useTheme} from "@mui/material";
-import { LoginForm } from "../../authentication/LoginForm";
-import SelfVerificationButton from "../../../../lib/self/SelfVerificationButton";
-import { ProgressSteps } from "./ProgressSteps";
-import { StepLabel } from "./StepLabel";
-import { useState } from "react";
-import { RoleGroup } from "./RoleGroup";
-import { useLogin } from "../../hooks";
-import {useRegister} from "@/app/auth/register/hooks/useRegister";
+import { Box, Button, Divider, useMediaQuery, useTheme } from "@mui/material";
+import SelfVerificationButton from "@/lib/self/SelfVerificationButton";
+import { RoleGroup } from "../../components/RoleGroup";
+import { useRegister } from "@/app/auth/register/hooks/useRegister";
+import {
+  ProgressSteps,
+  StepLabel,
+  ConnectWalletButton,
+} from "@/app/auth/components";
 
 export const RegisterCard = () => {
   const [_, setSessionId] = useState("");
@@ -18,26 +19,26 @@ export const RegisterCard = () => {
   const [walletConnected, setWalletConnected] = useState(false);
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
-  const { errors, control } = useLogin();
-  const { onRegisterUser } = useRegister();
+  const { onRegisterUser, errors, control } = useRegister();
+
   return (
     <CustomCard
       sx={{
-        p: 1,
-        width: isMdUp ? "80%" : "100%",
         height: "fit-content",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 1,
+        gap: 0.5,
         boxShadow: "0px",
         border: "0px",
+        width: "100%",
       }}
     >
       <SectionHeader
         title={"Registrarse"}
         subtitle="Completa los 3 pasos para registrarte"
+        subtitleSize={isMdUp ? 14 : 12}
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -74,10 +75,10 @@ export const RegisterCard = () => {
         isDone={walletConnected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
-      <LoginForm onWalletStatusChange={setWalletConnected} />
-      <Button onClick={async () => await onRegisterUser(roleSelected) }>
-          Registrarse ( Self no funcionando )
-      </Button> 
+      <ConnectWalletButton onWalletStatusChange={setWalletConnected} />
+      <Button onClick={async () => await onRegisterUser(roleSelected)}>
+        Registrarse ( Self no funcionando )
+      </Button>
       <Divider
         variant="fullWidth"
         sx={{
@@ -106,7 +107,6 @@ export const RegisterCard = () => {
           selfVerified={selfVerified}
         />
       </Box>
-
       <ProgressSteps
         roleSelected={roleIsSelected}
         selfVerified={selfVerified}

@@ -41,8 +41,8 @@ export const WalletConnection = () => {
       "--w3m-accent": "#1976d2",
     },
     features: {
-      analytics: true,
-      connectFirstChain: true,
+      analytics: false,
+      connectFirstChain: false,
     },
   });
 
