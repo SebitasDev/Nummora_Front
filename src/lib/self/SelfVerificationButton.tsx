@@ -16,6 +16,8 @@ import {
   Typography,
   CircularProgress,
   Paper,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { ethers } from "ethers";
@@ -48,6 +50,8 @@ export default function SelfVerificationButton({
   const [resultMessage, setResultMessage] = useState<string | null>(null);
   const [showQR, setShowQR] = useState(false);
   const [sessionId, setSessionId] = useState("");
+  const themeMUI = useTheme();
+  const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
   const pollRef = useRef<number | null>(null);
 
   const apiBase = (
@@ -206,6 +210,7 @@ export default function SelfVerificationButton({
             textTransform: "none",
             fontWeight: 500,
             height: 45,
+            fontSize: isMdUp ? 20 : 14,
             "&.Mui-disabled": {
               backgroundColor: selfVerified ? "#8AD1A4" : "#2563eb",
               color: "#fff",

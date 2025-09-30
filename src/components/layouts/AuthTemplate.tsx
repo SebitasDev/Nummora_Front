@@ -1,22 +1,14 @@
 "use client";
 
 import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
-import dynamic from "next/dynamic";
-import React from "react";
-import { NumoraDescription } from "@/app/auth";
-import { RegisterCard } from "@/app/auth";
+import React, { ReactNode } from "react";
+import { NumoraDescription } from "@/app/auth/components";
 
-const SelfVerificationButton = dynamic(
-  () => import("../../lib/self/SelfVerificationButton"),
-  { ssr: false }
-);
+interface AuthTemplateProps {
+  children: ReactNode;
+}
 
-const SelfVerificationStatus = dynamic(
-  () => import("../../lib/self/SelfVerificationStatus"),
-  { ssr: false }
-);
-
-export const RegisterTemplate = () => {
+export const AuthTemplate = ({ children }: AuthTemplateProps) => {
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
 
@@ -33,6 +25,7 @@ export const RegisterTemplate = () => {
         flexDirection: "column",
         height: "100%",
         background: "#edfdf4",
+        width: "100%",
       }}
     >
       <Box
@@ -40,6 +33,7 @@ export const RegisterTemplate = () => {
           display: "flex",
           flexDirection: "column",
           height: "100%",
+          width: isMdUp ? "100%" : "80%",
           [themeMUI.breakpoints.up("md")]: {
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -68,7 +62,7 @@ export const RegisterTemplate = () => {
             height: "100%",
           }}
         >
-          <RegisterCard />
+          {children}
         </Box>
       </Box>
       <Stack
@@ -102,7 +96,7 @@ export const RegisterTemplate = () => {
       </Stack>
       <Typography
         sx={{
-          mb: 2,
+          mb: 4,
           fontSize: isMdUp ? 14 : 11,
           textAlign: "center",
         }}
