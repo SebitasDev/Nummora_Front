@@ -5,11 +5,11 @@ const httpClient = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
-    withCredentials: true,
+    //withCredentials: true,
 });
 
 httpClient.interceptors.request.use((config) => {
-    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }

@@ -1,6 +1,6 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
-import { Box, Divider, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Divider, useMediaQuery, useTheme } from "@mui/material";
 import SelfVerificationButton from "@/lib/self/SelfVerificationButton";
 import { useState } from "react";
 import {
@@ -23,15 +23,14 @@ export const LoginCard = () => {
   return (
     <CustomCard
       sx={{
-        height: "fit-content",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 2,
         boxShadow: "0px",
         border: "0px",
         width: "100%",
+        height: "100%",
       }}
     >
       <SectionHeader
@@ -58,6 +57,18 @@ export const LoginCard = () => {
         onIsRoleSelected={setIsRoleSelected}
         OnRoleSelected={setRoleSelected}
       />
+      <Button onClick={() => onSubmit(roleSelected)}>
+        IF SELF NOT WORKING
+      </Button>
+      <Divider
+        variant="fullWidth"
+        sx={{
+          color: "grey.600",
+          fontSize: isMdUp ? 15 : 12,
+        }}
+      >
+        y
+      </Divider>
       <StepLabel
         number={2}
         title="Conexión de Billetera"
@@ -92,15 +103,6 @@ export const LoginCard = () => {
           isWalletConnected={walletConnected}
         />
       </Box>
-      <Divider
-        variant="fullWidth"
-        sx={{
-          color: "grey.600",
-          fontSize: isMdUp ? 15 : 12,
-        }}
-      >
-        y
-      </Divider>
 
       <ProgressSteps
         selfVerified={selfVerified}

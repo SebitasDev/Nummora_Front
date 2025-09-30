@@ -136,6 +136,7 @@ export default function SelfVerificationButton({
         return;
       }
 
+      //TODO: Change with real user address
       const userId = ethers.ZeroAddress;
 
       const app = new SelfAppBuilder({
@@ -145,9 +146,11 @@ export default function SelfVerificationButton({
         endpoint,
         logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
         userId,
-        endpointType: "staging_https",
+        endpointType: "https",
         userIdType: "hex",
         disclosures: { minimumAge: 18, nationality: true, gender: true },
+        userDefinedData: "Welcome to Nummora",
+        chainID: 11142220,
       } as any).build();
 
       const link = getUniversalLink(app);
@@ -220,22 +223,6 @@ export default function SelfVerificationButton({
         >
           {selfVerified ? "Verificado con Self" : "Login con Self"}
         </Button>
-
-        {selfVerified ||
-          (universalLink && (
-            <Button
-              onClick={openUniversalLink}
-              sx={{
-                backgroundColor: "#059669",
-                color: "#fff",
-                px: 2,
-                "&:hover": { backgroundColor: "#047857" },
-                width: "100%",
-              }}
-            >
-              Abrir en la app
-            </Button>
-          ))}
       </Box>
       <Dialog
         open={showQR}
@@ -305,7 +292,7 @@ export default function SelfVerificationButton({
           <Paper
             variant="outlined"
             sx={{
-              mt: 3,
+              my: 1.5,
               p: 2,
               borderRadius: 2,
               backgroundColor: "#EFF6FF",
@@ -329,6 +316,20 @@ export default function SelfVerificationButton({
               Descargar Self
             </Button>
           </Paper>
+
+          <Button
+            onClick={openUniversalLink}
+            sx={{
+              backgroundColor: "#059669",
+              color: "#fff",
+              borderRadius: 2,
+              px: 2,
+              "&:hover": { backgroundColor: "#047857" },
+              width: "100%",
+            }}
+          >
+            Abrir en la app
+          </Button>
 
           <Button
             onClick={cerrarQR}

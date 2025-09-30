@@ -24,15 +24,14 @@ export const RegisterCard = () => {
   return (
     <CustomCard
       sx={{
-        height: "fit-content",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 0.5,
         boxShadow: "0px",
         border: "0px",
         width: "100%",
+        height: "100%",
       }}
     >
       <SectionHeader
@@ -53,6 +52,7 @@ export const RegisterCard = () => {
         isDone={roleIsSelected}
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
+
       <RoleGroup
         control={control}
         errors={errors}
@@ -64,7 +64,6 @@ export const RegisterCard = () => {
         sx={{
           color: "grey.600",
           fontSize: isMdUp ? 15 : 12,
-          marginY: "1%",
         }}
       >
         y
@@ -84,11 +83,11 @@ export const RegisterCard = () => {
         sx={{
           color: "grey.600",
           fontSize: isMdUp ? 15 : 12,
-          marginY: "1%",
         }}
       >
         y
       </Divider>
+
       <StepLabel
         number={3}
         title="Verificación de identidad"

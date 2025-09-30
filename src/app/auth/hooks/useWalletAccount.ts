@@ -1,5 +1,5 @@
 import { useWalletAccount } from "@/hooks/useWalletAccount";
-import { Address } from "viem";
+import {Address, toBytes} from "viem";
 
 export const useWalletAuth = () => {
   const { isConnected, user, walletClient } = useWalletAccount();
@@ -10,7 +10,7 @@ export const useWalletAuth = () => {
     }
     const signature = await walletClient.signMessage({
       account: walletClient.account,
-      message,
+      message: { raw: toBytes(message) },
     });
     return { signature, user: user as Address };
   };
