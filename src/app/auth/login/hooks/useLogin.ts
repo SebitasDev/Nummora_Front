@@ -43,6 +43,7 @@ export const useLogin = () => {
       console.log("Login response:", response);
 
       if (response.success) {
+        localStorage.setItem("authToken", response.data!.access_token)
         role === UserRoles.Lender
           ? push("/lender/dashboard")
           : push("/borrower/dashboard");
