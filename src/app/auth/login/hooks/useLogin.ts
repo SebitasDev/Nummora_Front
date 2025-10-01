@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 import { useWalletAuth } from "@/app/auth/hooks/useWalletAccount";
 import { login } from "@/api/auth/login";
 import { UserRoles } from "@/enums/UserRoles";
+import {useWalletAccount} from "@/hooks/useWalletAccount";
 
 export const useLogin = () => {
   const { push } = useRouter();
-  const { isConnected, account, signMessage } = useWalletAuth();
+  const { isConnected, account } = useWalletAuth();
+  const { walletClient, user } = useWalletAccount();
 
   const {
     register,
@@ -22,7 +24,16 @@ export const useLogin = () => {
 
   const onSubmit = async (role: number) => {
     try {
-      const { signature, user } = await signMessage("Login to Nummora");
+      if (!walletClient || !user) {
+        throw new Error("Wallet not connected");
+      }
+      
+      const message = "Login to Nummora";
+
+      const signature = await walletClient.signMessage({
+        account: walletClient.account,
+        message,
+      });
 
       const response = await login({
         userAddress: user,
