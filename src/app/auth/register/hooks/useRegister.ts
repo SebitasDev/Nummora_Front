@@ -8,9 +8,11 @@ import { useForm } from "react-hook-form";
 import { LoginFormData } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/lib/zod/authShema";
+import {useWalletAccount} from "@/hooks/useWalletAccount";
 
 export const useRegister = () => {
   const { account, signMessage } = useWalletAuth();
+  const { walletClient } = useWalletAccount();
 
   const {
     formState: { errors },
@@ -20,7 +22,7 @@ export const useRegister = () => {
   });
 
   const registerWithLenderSignature = async (): Promise<`0x${string}`> => {
-    if (!account) throw new Error("Wallet not connected");
+    if (!account || !walletClient) throw new Error("Wallet not connected");
 
     const messageHash = keccak256(
         encodePacked(
@@ -32,12 +34,14 @@ export const useRegister = () => {
         )
     );
 
-    const { signature } = await signMessage(messageHash);
-    return signature;
+    return await walletClient.signMessage({
+      account: walletClient.account,
+      message: {raw: toBytes(messageHash)},
+    });
   };
 
   const registerWithBorrowerSignature = async (): Promise<`0x${string}`> => {
-    if (!account) throw new Error("Wallet not connected");
+    if (!account || !walletClient) throw new Error("Wallet not connected");
 
     const messageHash = keccak256(
         encodePacked(
@@ -49,8 +53,10 @@ export const useRegister = () => {
         )
     );
 
-    const { signature } = await signMessage(messageHash);
-    return signature;
+    return await walletClient.signMessage({
+      account: walletClient.account,
+      message: {raw: toBytes(messageHash)},
+    });
   };
 
   const registerLenderSignature = async () => {
