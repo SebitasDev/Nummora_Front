@@ -22,30 +22,34 @@ export const useRegister = () => {
   const registerWithLenderSignature = async (): Promise<`0x${string}`> => {
     if (!account) throw new Error("Wallet not connected");
 
-    const message = encodePacked(
-        ["address", "string"],
-        [
-          process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
-          "registerLender",
-        ]
+    const messageHash = keccak256(
+        encodePacked(
+            ["address", "string"],
+            [
+              process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+              "registerLender"
+            ]
+        )
     );
 
-    const { signature } = await signMessage(message);
+    const { signature } = await signMessage(messageHash);
     return signature;
   };
 
   const registerWithBorrowerSignature = async (): Promise<`0x${string}`> => {
     if (!account) throw new Error("Wallet not connected");
 
-    const message = encodePacked(
-        ["address", "string"],
-        [
-          process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
-          "registerBorrower",
-        ]
-    )
+    const messageHash = keccak256(
+        encodePacked(
+            ["address", "string"],
+            [
+              process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+              "registerBorrower"
+            ]
+        )
+    );
 
-    const { signature } = await signMessage(message);
+    const { signature } = await signMessage(messageHash);
     return signature;
   };
 
