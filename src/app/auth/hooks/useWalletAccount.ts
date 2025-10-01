@@ -1,16 +1,16 @@
 import { useWalletAccount } from "@/hooks/useWalletAccount";
-import {Address, toBytes} from "viem";
+import {Address, hexToBytes, toBytes} from "viem";
 
 export const useWalletAuth = () => {
   const { isConnected, user, walletClient } = useWalletAccount();
 
-  const signMessage = async (message: string) => {
+  const signMessage = async (message: `0x${string}`) => {
     if (!walletClient || !user) {
       throw new Error("Wallet not connected");
     }
     const signature = await walletClient.signMessage({
       account: walletClient.account,
-      message: { raw: toBytes(message) },
+      message: { raw: hexToBytes(message) },
     });
     return { signature, user: user as Address };
   };
