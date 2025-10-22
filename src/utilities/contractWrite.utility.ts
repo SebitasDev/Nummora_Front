@@ -1,9 +1,10 @@
 import { ContractCallProps } from "@/types/contract.interface";
-import { getReferralTag, submitReferral } from "@divvi/referral-sdk";
+import {getReferralTag, submitReferral} from "@divvi/referral-sdk";
+import {DIVVI_CONSUMER, ENVIRONMENT} from "@/Common/envairoments";
+import {celo} from "@reown/appkit/networks";
 
-// Extendemos los props para incluir client y user
 export interface ContractWriteProps extends ContractCallProps {
-  client: any; // Reemplaza con el tipo correcto de tu client
+  client: any;
   user: `0x${string}`;
 }
 
@@ -21,7 +22,7 @@ export const contractWrite = async (
 
     const referralTag = getReferralTag({
       user,
-      consumer: process.env.NEXT_PUBLIC_DIVVI_CONSUMER as `0x${string}`,
+      consumer: DIVVI_CONSUMER,
     });
 
     const txHash = await client.writeContract({
@@ -33,12 +34,7 @@ export const contractWrite = async (
       dataSuffix: `0x${referralTag}`,
     });
 
-    const chainId = await client.getChainId();
-
-    /*await submitReferral({ //SOLO CELO
-      txHash,
-      chainId,
-    });*/
+    if (ENVIRONMENT != "dev") await submitReferral({ txHash , chainId: celo.id});
 
     return txHash;
   } catch (error) {

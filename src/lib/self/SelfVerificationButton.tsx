@@ -25,6 +25,7 @@ import { SelfAppBuilder, type SelfApp } from "@selfxyz/common";
 import { getUniversalLink } from "@selfxyz/core";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import {SELF_API_URL, SELF_CALLBACK, SELF_SCOPE} from "@/Common/envairoments";
 
 function uuid() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto)
@@ -54,13 +55,8 @@ export default function SelfVerificationButton({
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
   const pollRef = useRef<number | null>(null);
 
-  const apiBase = (
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"
-  ).replace(/\/+$/, "");
-  const publicBase = (
-    process.env.NEXT_PUBLIC_SELF_CALLBACK ||
-    "https://673db36e43c3.ngrok-free.app"
-  ).replace(/\/+$/, "");
+  const apiBase = SELF_API_URL.replace(/\/+$/, "");
+  const publicBase = SELF_CALLBACK.replace(/\/+$/, "");
 
   useEffect(() => {
     return () => {
@@ -127,7 +123,7 @@ export default function SelfVerificationButton({
       const endpoint = buildCallbackUrl(publicBase, sid);
       if (!endpoint) {
         console.error(
-          "[Self] NEXT_PUBLIC_SELF_CALLBACK faltante o inválido (debe ser https). Valor:",
+          "[Self] SELF_CALLBACK faltante o inválido (debe ser https). Valor:",
           publicBase
         );
         setResultMessage(
@@ -142,7 +138,7 @@ export default function SelfVerificationButton({
       const app = new SelfAppBuilder({
         version: 2,
         appName: "Nummora Front",
-        scope: process.env.NEXT_PUBLIC_SELF_SCOPE || "nummora-front",
+        scope: SELF_SCOPE,
         endpoint,
         logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
         userId,

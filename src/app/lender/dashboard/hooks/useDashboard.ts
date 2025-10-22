@@ -3,6 +3,7 @@ import {useWalletAccount} from "@/hooks/useWalletAccount";
 import {NummusTokenAbi} from "@/contracts";
 import { useEffect, useState } from "react";
 import { formatEther } from "viem";
+import {NUMMORA_TOKEN_ADDRESS} from "@/Common/envairoments";
 
 export const useDashboard = () => {
     const read = contractRead();
@@ -16,7 +17,7 @@ export const useDashboard = () => {
         const fetchBalance = async () => {
             try {
                 const result = await read<bigint>({
-                    ContractAddress: process.env.NEXT_PUBLIC_NUMMUS_TOKEN_ADDRESS as `0x${string}`,
+                    ContractAddress: NUMMORA_TOKEN_ADDRESS,
                     abi: NummusTokenAbi,
                     functionName: "balanceOf",
                     args: [user],

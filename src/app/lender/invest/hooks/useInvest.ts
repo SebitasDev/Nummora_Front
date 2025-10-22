@@ -10,6 +10,7 @@ import {mapper} from "@/mappers/mapper";
 import {FinanceLoanDto} from "@/interfaces/financeLoanDto";
 import {toast} from "react-toastify";
 import {toWei} from "@/utilities/toWei.utility";
+import {NUMMORA_CORE_ADDRESS, STABLECOIN_ADDRESS} from "@/Common/envairoments";
 
 export const useInvest = () => {
   const { amount, setAmount } = useInvestAmountStore();
@@ -22,11 +23,11 @@ export const useInvest = () => {
   const acceptDeposit = async (value: number) => {
     console.log("Deposit value:", value);
     await write({
-      ContractAddress: process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+      ContractAddress: NUMMORA_CORE_ADDRESS as `0x${string}`,
       abi: NummoraLoanAbi,
       functionName: "deposit",
       args: [
-        process.env.NEXT_PUBLIC_STABLECOIN_ADDRESS as `0x${string}`, //Address Stablecoin
+        STABLECOIN_ADDRESS, //Address Stablecoin
         toWei(value) //Amount
       ]
     });

@@ -11,6 +11,7 @@ import {payInstallment} from "@/api/loan/payInstallment";
 import {mapper} from "@/mappers/mapper";
 import {FinanceLoanDto} from "@/interfaces/financeLoanDto";
 import {FinanceLoanPayload} from "@/api/loan/financeLoan";
+import {NUMMORA_CORE_ADDRESS} from "@/Common/envairoments";
 
 interface Loan {
     active: boolean;
@@ -46,7 +47,7 @@ export const useBorrowerDashboard = () => {
     
     const searchLoanById = async (id: BigInt) => {
         const searchLoan = await read<Loan>({
-            ContractAddress: process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+            ContractAddress: NUMMORA_CORE_ADDRESS,
             abi: NummoraLoanAbi,
             functionName: "getLoan",
             args: [
@@ -59,7 +60,7 @@ export const useBorrowerDashboard = () => {
     
     const payInstallmentV2 = async (loanId: BigInt) => {
         await write({
-            ContractAddress: process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+            ContractAddress: NUMMORA_CORE_ADDRESS,
             abi: NummoraLoanAbi,
             functionName: "payInstallment",
             args: [
@@ -70,7 +71,7 @@ export const useBorrowerDashboard = () => {
 
     const payEarly = async (loanId: BigInt) => {
         await write({
-            ContractAddress: process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+            ContractAddress: NUMMORA_CORE_ADDRESS,
             abi: NummoraLoanAbi,
             functionName: "payEarly",
             args: [
@@ -91,7 +92,7 @@ export const useBorrowerDashboard = () => {
             encodePacked(
                 ["address", "uint256", "uint256"],
                 [
-                    process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+                    NUMMORA_CORE_ADDRESS,
                     loanBlockchainId,
                     amount
                 ]

@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
+import {SELF_API_URL} from "@/Common/envairoments";
 
 interface Props {
   sessionId: string;
@@ -10,7 +11,7 @@ export default function SelfVerificationStatus({ sessionId }: Props) {
   const [message, setMessage] = useState<string>("Esperando verificación...");
   const pollRef = useRef<number | null>(null);
 
-  const apiBase = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080").replace(/\/+$/, "");
+  const apiBase = SELF_API_URL.replace(/\/+$/, "");
 
   useEffect(() => {
     if (!sessionId) return;

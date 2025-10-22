@@ -9,6 +9,7 @@ import { LoginFormData } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/lib/zod/authShema";
 import {useWalletAccount} from "@/hooks/useWalletAccount";
+import {NUMMORA_CORE_ADDRESS} from "@/Common/envairoments";
 
 export const useRegister = () => {
   const { account, signMessage } = useWalletAuth();
@@ -28,7 +29,7 @@ export const useRegister = () => {
         encodePacked(
             ["address", "string"],
             [
-              process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+              NUMMORA_CORE_ADDRESS,
               "registerLender"
             ]
         )
@@ -47,7 +48,7 @@ export const useRegister = () => {
         encodePacked(
             ["address", "string"],
             [
-              process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+              NUMMORA_CORE_ADDRESS as `0x${string}`,
               "registerBorrower"
             ]
         )

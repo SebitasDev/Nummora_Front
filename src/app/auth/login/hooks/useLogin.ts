@@ -7,6 +7,7 @@ import { useWalletAuth } from "@/app/auth/hooks/useWalletAccount";
 import { login } from "@/api/auth/login";
 import { UserRoles } from "@/enums/UserRoles";
 import {useWalletAccount} from "@/hooks/useWalletAccount";
+import {DIVVI_CONSUMER} from "@/Common/envairoments";
 
 export const useLogin = () => {
   const { push } = useRouter();
@@ -41,6 +42,7 @@ export const useLogin = () => {
         userRole: role,
       });
       console.log("Login response:", response);
+      console.log(DIVVI_CONSUMER)
 
       if (response.success) {
         localStorage.setItem("authToken", response.data!.access_token)

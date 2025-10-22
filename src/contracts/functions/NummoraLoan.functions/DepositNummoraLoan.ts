@@ -1,4 +1,5 @@
 import {NummoraLoanAbi} from "@/contracts";
+import {NUMMORA_CORE_ADDRESS} from "@/Common/envairoments";
 
 interface DepositNummoraLoanProps {
     stablecoinAddress: `0x${string}`;
@@ -12,7 +13,7 @@ export const DepositNummoraLoan = async (
     console.log(amount.toString())
     
     return await write({
-        ContractAddress: process.env.NEXT_PUBLIC_NUMMUS_LOAN_CORE as `0x${string}`,
+        ContractAddress: NUMMORA_CORE_ADDRESS,
         abi: NummoraLoanAbi,
         functionName: "deposit",
         args: [

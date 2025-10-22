@@ -1,7 +1,8 @@
 import axios from "axios";
+import {BACKEND_URL} from "@/Common/envairoments";
 
 const httpClient = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    baseURL: BACKEND_URL,
     headers: {
         "Content-Type": "application/json",
     },
