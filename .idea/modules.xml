@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/NummoraFront.iml" filepath="$PROJECT_DIR$/.idea/NummoraFront.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Nummora_Back/.idea/Nummora_Back.iml" filepath="$PROJECT_DIR$/../Nummora_Back/.idea/Nummora_Back.iml" />
     </modules>
   </component>
 </project>

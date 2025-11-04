@@ -1,16 +1,13 @@
 import {contractRead} from "@/utilities";
 import {NummoraLoanAbi} from "@/contracts";
 import {useState} from "react";
-import {Address, createWalletClient, encodePacked, keccak256, toBytes} from "viem";
+import {createWalletClient, encodePacked, keccak256, toBytes} from "viem";
 import {useContractWrite} from "@/hooks/useContractWrite";
 import {useWalletAccount} from "@/hooks/useWalletAccount";
 import {privateKeyToAccount} from "viem/accounts";
 import {liskSepolia} from "@reown/appkit/networks";
 import {http} from "wagmi";
 import {payInstallment} from "@/api/loan/payInstallment";
-import {mapper} from "@/mappers/mapper";
-import {FinanceLoanDto} from "@/interfaces/financeLoanDto";
-import {FinanceLoanPayload} from "@/api/loan/financeLoan";
 
 interface Loan {
     active: boolean;

@@ -14,6 +14,7 @@ interface LoginResponse {
 
 export async function login(payload: LoginPayload): Promise<ApiResponse<LoginResponse>> {
     try {
+        console.log(payload)
         const { data } = await httpClient.post("/auth/login", payload);
         return data as ApiResponse<LoginResponse>;
     }catch (e: any){
