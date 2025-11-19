@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
 import { Box, Button, Divider, useMediaQuery, useTheme } from "@mui/material";
-import SelfVerificationButton from "@/lib/self/SelfVerificationButton";
+import HumanTechVerificationButton from "@/lib/self/HumanTechVerificationButton";
 import { RoleGroup } from "../../components/RoleGroup";
 import { useRegister } from "@/app/auth/register/hooks/useRegister";
 import {
@@ -12,7 +12,6 @@ import {
 } from "@/app/auth/components";
 
 export const RegisterCard = () => {
-  const [_, setSessionId] = useState("");
   const [roleIsSelected, setIsRoleSelected] = useState(false);
   const [roleSelected, setRoleSelected] = useState(Number);
   const [selfVerified, setSelfVerified] = useState(false);
@@ -96,8 +95,7 @@ export const RegisterCard = () => {
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
       <Box sx={{ mt: -3.5, mb: 2, width: "100%", height: 100 }}>
-        <SelfVerificationButton
-          onSessionId={setSessionId}
+        <HumanTechVerificationButton
           onResult={(data) => {
             if (data?.status === "success" || data?.verified) {
               setSelfVerified(true);
@@ -111,6 +109,7 @@ export const RegisterCard = () => {
         roleSelected={roleIsSelected}
         selfVerified={selfVerified}
         walletConnected={walletConnected}
+        onAllStepsCompleted={() => onRegisterUser(roleSelected)}
       />
     </CustomCard>
   );

@@ -1,8 +1,8 @@
 import { CustomCard } from "@/components/atoms/CustomCard";
 import SectionHeader from "@/components/atoms/SectionHeader";
-import {Box, Button, Divider, useMediaQuery, useTheme} from "@mui/material";
-import SelfVerificationButton from "@/lib/self/SelfVerificationButton";
-import { useState } from "react";
+import {Box, Divider, useMediaQuery, useTheme} from "@mui/material";
+import HumanTechVerificationButton from "@/lib/self/HumanTechVerificationButton";
+import {useState} from "react";
 import {
   ProgressSteps,
   StepLabel,
@@ -12,7 +12,6 @@ import { useLogin } from "../hooks/useLogin";
 import { RoleGroup } from "../../components/RoleGroup";
 
 export const LoginCard = () => {
-  const [_, setSessionId] = useState("");
   const [selfVerified, setSelfVerified] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
   const [roleIsSelected, setIsRoleSelected] = useState(false);
@@ -20,6 +19,7 @@ export const LoginCard = () => {
   const themeMUI = useTheme();
   const isMdUp = useMediaQuery(themeMUI.breakpoints.up("md"));
   const { errors, control, onSubmit } = useLogin();
+
   return (
     <CustomCard
       sx={{
@@ -69,8 +69,7 @@ export const LoginCard = () => {
         sx={{ fontSize: isMdUp ? 14 : 11 }}
       />
       <Box sx={{ mt: -3.5, mb: 2, width: "100%", height: 100 }}>
-        <SelfVerificationButton
-          onSessionId={setSessionId}
+        <HumanTechVerificationButton
           onResult={(data) => {
             if (data?.status === "success" || data?.verified) {
               setSelfVerified(true);
@@ -102,9 +101,6 @@ export const LoginCard = () => {
         OnRoleSelected={setRoleSelected}
         previousStepCompleted={walletConnected}
       />
-        <Button
-            onClick={() => onSubmit(roleSelected)}
-        >IF SELF NOT WORKING</Button>
       <ProgressSteps
         selfVerified={selfVerified}
         walletConnected={walletConnected}

@@ -10,7 +10,6 @@ import {SummaryOfMoneyRequest} from "@/app/borrower/request-money/components/Sum
 export const RequestMoneyTemplate = () => {
     useAuthGuard();
     const themeMUI = useTheme();
-    //const isMobile = useMediaQuery(themeMUI.breakpoints.down("md"))
 
     return (
         <>

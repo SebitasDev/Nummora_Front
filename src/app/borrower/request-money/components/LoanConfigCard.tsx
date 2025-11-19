@@ -23,7 +23,7 @@ export default function LoanConfigCard() {
                 p: 3,
                 order: { xs: 2, md: "initial" },
                 gridTemplateColumns: { xs: "1fr", md: "repeat(12, 1fr)" },
-                overflow: "visible", // importante si algo se corta
+                overflow: "visible",
             }}
         >
             <Box

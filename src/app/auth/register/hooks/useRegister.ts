@@ -103,6 +103,8 @@ export const useRegister = () => {
     } else {
       return await registerBorrowerSignature();
     }
+
+
   };
 
   return {

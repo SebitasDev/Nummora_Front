@@ -131,6 +131,7 @@ export const BorrowerDashboardTemplate = () => {
                     {/* Caja derecha - Azul */}
                     <Box sx={{ gridColumn: { xs: "span 12", md: "span 6" } }}>
                         <CustomCard
+                            onClick={() => push("/borrower/payment")}
                             sx={{
                                 cursor: "pointer",
                                 transition: "all 0.3s ease",
